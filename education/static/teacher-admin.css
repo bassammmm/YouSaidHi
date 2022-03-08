@@ -1,0 +1,547 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: white!important;
+    overflow-x: hidden;!important;
+}
+
+h1, h2, h3, h4,h5,h6 {
+    font-family: 'Quicksand', sans-serif;!important;
+}
+
+p, strong {
+    font-family: sans-serif;
+}
+
+.teacher-admin-nav-column{
+    height: 100vh;
+    background-color: #5e62d1;
+    display: block;
+    position: sticky;
+    position: -webkit-sticky;
+}
+.teacher-admin-nav-content{
+    overflow-y: scroll;
+    height: 100vh;
+}
+.teacher-admin-nav-heading{
+    color: white;
+    margin: 1em 0;
+}
+
+.teacher-admin-nav-heading h1 {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 700;
+    padding: 10px;
+
+}
+.nav-link{
+    color: #5fecc8;
+}
+/*.view-teachers-tab-css{*/
+/*    padding-top: 5%;*/
+/*    padding-left: 10%;*/
+/*    padding-right: 10%;*/
+
+/*}*/
+/*.view-courses-tab-css{*/
+/*    padding-top: 5%;*/
+/*    padding-left: 10%;*/
+/*    padding-right: 10%;*/
+/*}*/
+
+.collapsible{
+    background-color: rgba(204, 255, 222, 0.64);
+    color: #ff00b1;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px
+}
+.collapsible:after {
+    content: '\02795';
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+#collapsible-content{
+    /*padding: 2em 4em;*/
+    /*background-color: gainsboro;*/
+    max-height: 150px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.course-lesson-container{
+    /*border: 2px solid #dee2e6;*/
+    margin-top:4%;
+}
+.course-lesson-heading{
+    display: inline-block;
+    /*border: 2px solid #dee2e6;*/
+}
+ul {
+    list-style-type: none;
+}
+
+.choose-student-container{
+    width: 30%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    outline: none!important;
+    /*border: 1px solid black;*/
+}
+
+#select-student:focus {
+    outline: none!important;
+}
+.student-information{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.5em;
+    /*border: 1px solid black;*/
+    background-color: #ffffff;
+    /*justify-content: space-evenly;*/
+    /*align-items: center;*/
+}
+
+.student-profile-big-image{
+    height: 150px;
+    width: 150px;
+    flex: 0 0 30%;
+    /*padding:10px;*/
+    margin: 0 1.5em 0 0;
+}
+.student-profile-big-image img{
+    height: inherit;
+    width: inherit;
+    border-radius: 50%;
+}
+
+.student-details-box{
+    /*flex: 0 0 35%;*/
+    padding:10px;
+    width: 100%;
+    height: 100%;
+}
+.student-details-box ul{
+    height: 100%!important;
+    display: block!important;
+}
+.student-edit-details{
+
+    flex: 0 0 35%;
+    padding:10px;
+}
+
+.profile-wrapper-div {
+    /*border: 1px solid black;*/
+    padding: 2em;
+    background-color: white;
+    height: auto;
+    margin-right: 1em;
+    width: 650px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.3);
+}
+
+.collapsible{
+    border:1px solid #af8282 !important;
+    background-color: rgb(178 167 255 / 64%);
+    color: #585858;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px
+}
+.collapsible:after {
+    content: '\02795';
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+#collapsible-content{
+    padding: 0 50px 0 50px;
+    background-color: gainsboro;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.summary-container{
+    /*border: 2px solid #dee2e6;*/
+    margin-top:4%;
+}
+.summary-heading{
+    display: inline-block;
+    /*border: 2px solid #dee2e6;*/
+}
+ul {
+    list-style-type: none;
+}
+.summary-monthly-heading{
+    width: 100%;
+    text-align: center;
+}
+.summary-monthly-month{
+    margin-right: 60%;
+    text-align: left;
+    display: inline-block;
+}
+.summary-monthly-salary-heading{
+    margin: auto;
+    text-align: center;
+    display: inline-block;
+}
+
+.summary-monthly-pay{
+    margin: auto;
+    text-align: center;
+    display: inline-block;
+}
+
+.color-codes{
+    margin-top: 5%;
+    height: auto;
+    width: 100%;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+
+.boxess{
+    height: auto;
+    width: 10%;
+    border:2px solid blue;
+    display: inline-block;
+}
+
+.color-box{
+    height:20px;
+    widht:50px;
+
+}
+.color-box-green{
+    background-color: green;
+}
+.color-box-red{
+    background-color: red;
+}
+.color-box-blue{
+    background-color: blue;
+}
+.color-box-orange{
+    background-color: orange;
+}
+.color-box-yellow{
+    background-color: yellow;
+}
+.add-lesson-buttonss{
+    display: inline-block;
+    width: 100%;
+}
+.add-lesson-button-1,.add-lesson-button-2{
+    display: inline-block;
+}
+.add-lesson-button-2{
+    float: left;
+}
+.add-lesson-button-1{
+    float: right;
+    margin-left: 30%;
+}
+
+.student-complain-header {
+    height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.student-complain-header h1 {
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+.student-complain-wrapper {
+    height: 100%;
+    width: 100%;
+    /*border: 1px solid black;*/
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.teacher-admin-nav-content {
+    width: 85%;
+    height: 100vh;
+}
+
+.teacher-admin-nav-column {
+    width: 15%;
+    height: 100vh;
+    padding: 2em 1em 2em 1em;
+}
+
+.teacher-admin-nav-column > .nav-link {
+    text-align: center;!important;
+}
+
+.view-teachers-header {
+    height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-teachers-header h1 {
+     text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+
+.view-teachers-wrapper {
+    height: 100%;
+    width: 100%;
+    /*border: 1px solid black;*/
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.add-teacher-header {
+    height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-teacher-header h1 {
+     text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+
+.add-teacher-wrapper {
+    margin: 4em 0;
+    width: 50% !important;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 2em 3em 2em 3em!important;
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.3);
+}
+
+.view-courses-header {
+    height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-courses-header h1 {
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+
+}
+
+.view-courses-wrapper {
+    height: 100%;
+    width: 100%;
+    /*border: 1px solid black;*/
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.add-course-header {
+     height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-course-header h1 {
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+
+.add-course-wrapper {
+    margin: 4em 0;
+    width: 50% !important;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 2em 3em 2em 3em!important;
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.3);
+}
+
+.view-lessons-header {
+    height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-lessons-header h1 {
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+
+.course-lesson-buttons {
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    /*border: none!important;*/
+    border: 2px solid rgba(0,0,0,1);
+}
+
+.course-lesson-buttons:focus {
+    outline: none!important;
+}
+
+.lesson-content-collapsibble {
+    background: #ffffff!important;
+    color: rgba(0,0,0,0.8);
+}
+
+
+.course-lesson-container > ul > li {
+    margin: 1em 0;
+}
+
+.add-lessons-header {
+     height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-lessons-header h1 {
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+
+.add-lessons-wrapper {
+    margin: 4em 0;
+    width: 50% !important;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 2em 3em 2em 3em!important;
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.3);
+}
+
+#lesson_documents-0-lesson_document {
+    margin-left: 1em!important;
+    margin-bottom: 4px;
+}
+
+
+.students-info-header {
+    height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.students-info-header h1 {
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+.choose-student-row {
+    /*margin: 1em 0;*/
+    width: 100%!important;
+    height: 100%;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 1em 3em 2em 3em!important;
+
+
+}
+
+.student-detail-list-item-heading, .student-detail-list-item-value{
+    display: inline-block;
+}
+
+.student-detail-list-item-value{
+    float: right;
+}
+
+.teacher-salary-header {
+     height: 100px;
+    width: 100%;
+    background: #f0f4f5;
+    border: 2em solid #f0f4f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.teacher-salary-header h1 {
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    font-weight: 900;
+}
+
+.teacher-salary-wrapper {
+    width: 100%!important;
+    height: 100%;
+    background-color: white;
+    /*border: 1px solid rgba(0,0,0,0.2);*/
+    padding: 1em 3em 2em 3em!important;
+}
+
+.account-details-container {
+    padding: 2em;
+    border: 1px solid rgba(0,0,0,0.2);
+    /*box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.3);*/
+    margin-top: 1em;
+    width: 500px;
+
+}
+
+.account-details-container p {
+    display: inline-block;
+}
+
+.salary-colapsible-button {
+    background-color: rgba(0,0,0,0.8);
+    color: #ffffff;
+}

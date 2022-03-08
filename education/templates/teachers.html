@@ -1,0 +1,178 @@
+{% extends "layout.html" %}
+
+{% block style_content %}
+    <link rel="stylesheet" href="{{url_for('static',filename='teachers.css')}}">
+    <title>yousaidhi - Teachers</title>
+    <link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.png')}}" type ="image/x-icon">
+{% endblock style_content %}
+
+
+
+
+
+{% block body_content %}
+
+<div  id="teacher-banner-teachers-display-page">
+       <div class="teacher-banner-first-col">
+            <h2>Teachers</h2>
+            <img src="{{url_for('static',filename='html_pics/main.jpg')}}"
+                 alt="">
+       </div>
+       <div class="teacher-banner-second-col">
+          <div id="video-container-teachers-display-page">
+             <div class="fullscreen-video-wrap-courses-display-page">
+                 <img src="{{url_for('static',filename='html_pics/teacher.gif')}}"
+                 alt="">
+<!--                <video id="video-main-courses-display-page" src="{{url_for('static',filename='html_vids/teacher-video.mp4')}}" type="video/mp4" muted="true" autoplay="true" loop="true"></video>-->
+             </div>
+          </div>
+       </div>
+    </div>
+
+
+<div class="teachers-lower-border"></div>
+<div class="teachers-main-card">
+   <h1>Our Capable Teachers</h1>
+   <p>Our teachers are handpicked by our staff to make sure you receive quality education.</p>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f0f4f5" fill-opacity="1" id="svg-waves" d="M0,32L40,37.3C80,43,160,53,240,80C320,107,400,149,480,181.3C560,213,640,235,720,202.7C800,171,880,85,960,74.7C1040,64,1120,128,1200,138.7C1280,149,1360,107,1400,85.3L1440,64L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
+
+
+
+
+
+
+
+<div class="container teacher-packages">
+    <div  class="container" id="teacher-courses-packages">
+
+        <div class="row rowp" id="row-teacher-packages">
+            {%for teacher in teachers%}
+                <div class=" col-12 col-sm-6 col-md-4 col-md-offset-2"  id="column-teacher-display-page" >
+                <div id="hovered-column-teacher-display-page">
+                    <div class="picture-teacher-display-page">
+                            <div class="thumbnail-teacher-display-page">
+                                <img class="img-rounded" id="teacher-display-pic"  src="{{url_for('static',filename='data/teachers/'+teacher.first_name+'_'+teacher.email+'/'+teacher.image_file)}}">
+                            </div>
+                    </div>
+                    <div class="details-teacher-display-page">
+                        <div class="before-hr" id="anchorhead1-teacher-display-page">
+                                <h5 class="search-heading">{{teacher.first_name}} {{teacher.last_name}}</h5>
+
+                                <p style="color: rgba(0,0,0,0.6)">{{teacher.one_line_description}}</p>
+                        </div>
+                        <button class="btn teacher-details-display-button" id="view-{{teacher.id}}"><p>View Details</p></button>
+                    </div>
+
+
+
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+
+<div class="container" id="details-teacher-display" style="display: none;">
+        <div class="container detail-teacher-inner-wrapper">
+
+            <div class="container teacher-img-and-name">
+                <div class="teacher-image-div">
+                    <img class="teacher-img-src" src="{{url_for('static',filename='html_pics/woman.jpg')}}">
+                </div>
+                <div class="teacher-name-div">
+                    <h3 class="lessons-teacher-heading">
+                        John Doe
+                    </h3>
+                    <p id="one-line-teacher-description">Lorem ipsum dolor sit amet.</p>
+                    <div class="teacher-info-div">
+
+                        <div class="teacher-speaks"><i class="fas fa-graduation-cap" style="color: #aeb5bc; margin-right: 0.5em; font-size: 0.8em"></i> <strong style="font-weight: 500">Speaks</strong>  <strong style="font-weight: 300">English (native)</strong></div>
+                        <div class="teacher-lessons"><i class="far fa-dot-circle" style="color: #aeb5bc; margin-right: 0.5em; font-size: 0.8em"></i> <strong style="font-weight: 500">Lessons</strong> <strong class="no-of-lessons-text" style="font-weight: 300">100</strong></div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="teacher-description-main">
+
+                <div class="student-teacher-about-details">
+                    <strong>About the Teacher</strong>
+                    <p class="teacher-about-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque enim eum eveniet provident sunt ullam. Aliquam animi
+                        beatae corporis deleniti dignissimos doloribus eius esse eum eveniet expedita, facere facilis fuga illum laudantium minima,
+                        molestias non nostrum officiis praesentium quaerat quidem quis quisquam, repudiandae tempore velit! Aspernatur consequatur cum
+                        cupiditate delectus deleniti dignissimos, ducimus esse ipsum laudantium modi neque nesciunt numquam obcaecati omnis quasi quod
+                        reiciendis ut veniam voluptates voluptatum. Blanditiis error numquam repellendus vitae? Accusantium autem commodi ea enim error
+                        exercitationem explicabo fugiat incidunt laboriosam non placeat, porro quae quam quia quis reiciendis repellat soluta? Culpa ducimus
+                        exercitationem quos?</p>
+                </div>
+
+                <button type="button" id="small-go-back-circle" title="go back button">Back
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock body_content %}
+
+
+
+
+
+{% block scripts_content %}
+<script>
+
+
+    const teachers = {{all_teachers|safe}};
+
+    // AOS.init();
+    $('#small-go-back-circle').click(function () {
+        $('#details-teacher-display').css('display','none');
+        $('.teacher-packages').css('display','flex');
+    });
+    $(document).ready(function () {
+        $('.detail-teacher-inner-wrapper').addClass("loaded");
+        console.log('hgyaaa')
+    });
+    $('.teacher-details-display-button').click(function () {
+        $('.teacher-packages').css('display','none');
+        $('#details-teacher-display').css('display','flex');
+
+        let teacher_id = $(this).attr('id').split('-')[1];
+        let teacher = teachers[teacher_id];
+        let img_string = "{{url_for('static',filename='data/teachers/first_name_email/teacher_image')}}".replace('first_name', teacher.first_name);
+
+
+        img_string = img_string.replace('email', teacher.email);
+        img_string = img_string.replace('teacher_image', teacher.image_file);
+        $('.teacher-img-src').attr('src',img_string);
+        $('.teacher-about-text').text(teacher.about);
+        $('#one-line-teacher-description').text(teacher.one_line_description);
+        $('.lessons-teacher-heading').text(teacher.first_name+' '+teacher.last_name);
+        $('.no-of-lessons-text').text(teacher.completed_lessons);
+    });
+    //Initial Ratings
+    let ratings = 5;
+    $('.number-rating strong').html('('+ratings+')');
+    //Total stars
+    const starsTotal = 5;
+    //run getratings when dom loads
+    document.addEventListener('DOMContentLoaded',getRatings);
+    //get ratings
+    function getRatings() {
+        const starPercenage=(ratings/starsTotal) * 100;
+        //Round to nearest 10
+        const starPercentageRounded = `${(starPercenage/10)*10}%`;
+        console.log(starPercentageRounded);
+        //Set width of stars-inner to percentgae
+        document.querySelector(`.star-inner`).style.width = starPercentageRounded;
+
+    }
+</script>
+
+{% endblock scripts_content %}
+

@@ -1,0 +1,2261 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible"
+	      content="ie=edge">
+
+	<link rel="stylesheet"
+	      href="{{url_for('static',filename='student_panel.css')}}">
+	<link rel="stylesheet"
+	      href="{{url_for('static',filename='tail.select-mystery.min.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('static',filename='slick-theme.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='slick.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='jquery.fancybox.min.css')}}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Lacquer&family=Roboto+Slab&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+	<script src="https://kit.fontawesome.com/2b6331dcd5.js" crossorigin="anonymous"></script>
+	<title>yousaidhi - Student Panel</title>
+	<link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.ico')}}" type ="image/x-icon">
+</head>
+
+<body>
+
+
+		<header class="student-page-header">
+			<div class="inner-student-header">
+
+
+				<div class="inner-header-col-1">
+							<h1 class="st-heading">Student Panel</h1>
+
+							<div class="student-profile-big-image">
+
+								<img src="{{url_for('static',filename='data/students/'+student.first_name+'_'+student.email+'/'+student.image_file)}}" alt="student-img" class="avatar student-profile-img">
+
+
+							</div>
+							<div class="student-header-typing-box">
+					<h1>Hello! </h1>
+					<h1 class="typewriter">
+
+					</h1>
+				</div>
+				</div>
+
+				<div class="inner-header-col-2">
+					<div class="upcoming-lessons">
+						{% if latest_booking %}
+						<strong class="upcoming-lesson-heading">
+							Upcoming Lesson
+						</strong>
+
+							<div class="balloon white">
+								<div class="star-red"></div>
+								<div class="face">
+									<div class="eye"></div>
+									<div class="mouth happy"></div>
+								</div>
+								<div class="triangle"></div>
+								<div class="string"></div>
+							</div>
+
+
+							<div class="balloon red">
+								<div class="star"></div>
+								<div class="face">
+									<div class="eye"></div>
+									<div class="mouth happy"></div>
+								</div>
+								<div class="triangle"></div>
+								<div class="string"></div>
+							</div>
+
+							<div class="balloon blue">
+								<div class="star"></div>
+								<div class="face">
+									<div class="eye"></div>
+									<div class="mouth happy"></div>
+								</div>
+								<div class="triangle"></div>
+								<div class="string"></div>
+							</div>
+							<div id="timer">
+
+							</div>
+						{% else %}
+							<h1 style="text-align:center;color:white;"> NO UPCOMING LESSONS! </h1>
+
+						{% endif %}
+
+					</div>
+					<div class="upcoming-date-time">
+						<p class="upcoming-date-time-text"> </p>
+					</div>
+				</div>
+
+				<div class="inner-header-col-3">
+							<div class="student-course-details">
+								{% if latest_booking %}
+									<div class="course-student-header">
+										<img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[latest_booking['lesson_id']].course_id].course_code+'/'+all_course[all_lessons[latest_booking['lesson_id']].course_id].course_image)}}"
+											 alt=""
+											 class="avatar course-student-img">
+									<strong class="course-student-name">{{all_course[all_lessons[latest_booking['lesson_id']].course_id].course_name}}</strong></div>
+									<div class="lesson-student-header">
+										<img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[latest_booking['lesson_id']].course_id].course_code+'/'+all_lessons[latest_booking['lesson_id']].lesson_code+'/'+all_lessons[latest_booking['lesson_id']].lesson_image)}}"
+											 alt=""
+											 class="avatar lesson-student-img">
+									<strong class="lesson-name-of-course">{{all_lessons[latest_booking['lesson_id']].lesson_name}}</strong></div>
+									<div class="teacher-name-for-course">
+										<img src="{{url_for('static',filename='data/teachers/'+all_teachers[latest_booking['teacher_id']].first_name+'_'+all_teachers[latest_booking['teacher_id']].email+'/'+all_teachers[latest_booking['teacher_id']].image_file)}}"
+											 alt=""
+											 class="avatar teacher-for-course-avatar">
+										<strong class="teacher-name">{{all_teachers[latest_booking['teacher_id']].first_name}} {{all_teachers[latest_booking['teacher_id']].last_name}}</strong>
+									</div>
+								{% endif %}
+							</div>
+
+                            <div class="student-zoom-link">
+<!--                                {% if latest_booking %}-->
+<!--                                   <i class="far fa-dot-circle circle-icon"></i><a href="{{all_teachers[latest_booking['teacher_id']].zoom_link}}"-->
+<!--                                                                                   target="_blank" class="student-zoom-link-href">Join Class Meeting</a>-->
+
+<!--                                {% endif %}-->
+                            </div>
+				</div>
+			</div>
+
+
+		</header>
+
+		<section class="student-tab-panel-section">
+			<div class="student-body-container">
+				<div class="student-tabs-option">
+				   <div class="nav flex-column nav-pills side-panel-student-page" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					  <div class="dashboard-header"> <span class="paper-icon"><i class="fas fa-paper-plane"></i></span> <strong>Dashboard</strong></div>
+					  <a class="nav-link active" id="student-profile-tab" data-toggle="pill" href="#student-profile-content" role="tab" aria-controls="student-profile-tab" aria-selected="true"><i class="fas-common fas fa-user-circle" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i> My Profile</a>
+					  <a class="nav-link" id="student-lessons-tab" data-toggle="pill" href="#student-lesson-content" role="tab" aria-controls="student-lessons-tab" aria-selected="false"><i class="fas-common fas fa-book" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>My Lessons</a>
+					   <a class="nav-link" id="student-course-material-tab" data-toggle="pill" href="#student-course-material-content" role="tab" aria-controls="student-course-material-tab" aria-selected="false"><i class="fas-common fas fa-book" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Course Material</a>
+					  <a class="nav-link" id="student-book-lessons-tab" data-toggle="pill" href="#student-book-lesson-content" role="tab" aria-controls="student-book-lessons-tab" aria-selected="false"><i class="fas-common fas fa-swatchbook" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Book Lessons</a>
+					  <a class="nav-link" id="student-teachers-tab" data-toggle="pill" href="#student-teachers-content" role="tab" aria-controls="student-teachers-tab" aria-selected="false"><i class="fas-common fas fa-chalkboard-teacher" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Teachers</a>
+					  <a class="nav-link" id="student-courses-tab" data-toggle="pill" href="#student-courses-content" role="tab" aria-controls="student-courses-tab" aria-selected="false"><i class="fas-common fas fa-swatchbook" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Courses</a>
+					  <a class="nav-link" id="student-payment-tab" data-toggle="pill" href="#student-payment-content" role="tab" aria-controls="student-payment-tab" aria-selected="false"><i class="fas-common fas fa-receipt" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Buy Lessons</a>
+					  <a class="nav-link" id="student-settings-tab" data-toggle="pill" href="#student-settings-content" role="tab" aria-controls="student-settings-tab" aria-selected="false"><i class="fas-common fas fa-cog" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Settings</a>
+					  <a class="nav-link" id="student-complain-tab" data-toggle="pill" href="#student-complain-content" role="tab" aria-controls="student-complain-tab" aria-selected="false"><i class="fas-common fas fa-cog" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Complains</a>
+                      <a class="nav-link" id="student-lecture-videos-tab" data-toggle="pill" href="#student-lecture-videos-content" role="tab" aria-controls="student-lecture-videos-tab" aria-selected="false"><i class="fas-common fas fa-receipt" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Lecture Videos</a>
+                      <a class="nav-link" id="student-terms-and-cond-tab" data-toggle="pill" href="#student-terms-and-cond-content" role="tab" aria-controls="student-terms-and-cond-tab" aria-selected="false"><i class="fas-common fas fa-receipt" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Terms & Conditions</a>
+
+
+
+
+				   </div>
+
+				   <a href="{{url_for('logout')}}"
+					  class="student-logout"><i class="fas fa-sign-out-alt" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Sign Out</a>
+				</div>
+
+				<div class="student-tabs-content">
+
+
+					<div class="tab-content" id="v-pills-tabContent">
+
+						<div class="tab-pane tab-pane-common-student fade show active" id="student-profile-content" role="tabpanel" aria-labelledby="student-profile-tab">
+							<div class="student-profile-area">
+								<div class="student-profile-information">
+									<img src="{{url_for('static',filename='html_pics/st-account.png')}}" id="profile-background-img" alt="">
+
+								</div>
+
+
+								<div class="student-information-div">
+									<div class="student-personal-info">
+										<span class="st-fname"><strong class="fname-key personal-info-key">First Name</strong><strong class="fname-value personal-info-value">{{student.first_name}}</strong></span>
+										<span class="st-lname"><strong class="lname-key personal-info-key">Last Name</strong><strong class="lname-value personal-info-value">{{student.last_name}}</strong></span>
+										<span class="st-country"><strong class="country-key personal-info-key">Country</strong><strong class="country-value personal-info-value">{{student.country}}</strong></span>
+										<span class="st-native-language"><strong class="native-lang-key personal-info-key">Native Language</strong><strong class="native-lang-value personal-info-value">{{student.language}}</strong></span>
+
+									</div>
+
+
+
+
+
+
+								</div>
+
+							</div>
+                            <div class="student-profile-remaining-lessons">
+
+                                <h1>Remaining Lessons</h1>
+                                <h1>{{student.number_of_lessons_remaining}}</h1>
+                                </div>
+						</div>
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-lesson-content" role="tabpanel" aria-labelledby="student-lessons-tab">
+							<div class="student-lessons-header">
+								<img class="student-lessons-header-img" src="{{url_for('static',filename='html_pics/st-mylessons.png')}}" alt="">
+							</div>
+
+							<nav>
+
+								<div class="nav nav-tabs student-lesson-tabs" id="nav-tab" role="tablist">
+									<a class="nav-item nav-link active" id="nav-all-lessons-tab" data-toggle="tab" href="#student-lesson-all-tab-content" role="tab" aria-controls="nav-all-lessons-tab" aria-selected="true">All Lessons</a>
+									<a class="nav-item nav-link" id="nav-most-recent-tab" data-toggle="tab" href="#student-lesson-most-recent-tab-content" role="tab" aria-controls="nav-most-recent-tab" aria-selected="false">Upcoming Lessons</a>
+									<a class="nav-item nav-link" id="nav-missed-tab" data-toggle="tab" href="#student-lesson-missed-tab-content" role="tab" aria-controls="nav-missed-tab" aria-selected="false">Missed Lessons</a>
+									<a class="nav-item nav-link" id="nav-successful-tab" data-toggle="tab" href="#student-lesson-successful-tab-content" role="tab" aria-controls="nav-missed-tab" aria-selected="false">Successful Lessons</a>
+								</div>
+
+							</nav>
+
+							<div class="tab-content student-lessons-tab-content" id="nav-tabContent">
+
+								<div class="tab-pane fade show active" id="student-lesson-all-tab-content" role="tabpanel" aria-labelledby="nav-all-lessons-tab" style="padding:20px!important;">
+
+                                    <table id="all-lessons-table" class="table table-striped table-bordered all-lessons-table" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;!important">Click here to sort</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="all-lessons-table-body">
+
+                                                          {% for booking in student_dict.bookings %}
+                                                              <tr>
+                                                                <td><div class="student-lessons-main-list">
+
+                                                                    <div class="student-lessons-list">
+                                                                        <div class="student-list-course-col">
+                                                                            <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_course[all_lessons[booking.lesson_id].course_id].course_image)}}"
+                                                                                 alt=""
+                                                                                 class="avatar student-list-course-img">
+                                                                            <strong class="student-list-course-name">{{all_course[all_lessons[booking.lesson_id].course_id].course_name}}</strong>
+
+                                                                        </div>
+
+
+                                                                        <div class="student-list-lesson-col">
+                                                                            <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_lessons[booking.lesson_id].lesson_code+'/'+all_lessons[booking.lesson_id].lesson_image)}}"
+                                                                                 alt=""
+                                                                                 class="avatar student-list-lesson-img">
+                                                                            <strong class="student-list-lesson-name">{{all_lessons[booking.lesson_id].lesson_name}}</strong>
+
+                                                                        </div>
+
+
+                                                                        <div class="student-list-teacher-col">
+                                                                            <img src="{{url_for('static',filename='data/teachers/'+all_teachers[booking.teacher_id].first_name+'_'+all_teachers[booking.teacher_id].email+'/'+all_teachers[booking.teacher_id].image_file)}}"
+                                                                                 alt=""
+                                                                                 class="avatar student-list-teacher-img">
+                                                                            <strong class="student-list-teacher-name">{{all_teachers[booking.teacher_id].first_name}} {{all_teachers[booking.teacher_id].last_name}}</strong>
+
+
+
+                                                                        </div>
+                                                                        <div class="student-list-datetime-col">
+                                                                            <div class="student-list-date">
+                                                                                <i class="fas fa-calendar-week fa-2x" style="color: lightslategray"></i>
+                                                                                <strong id="student-list-date">
+                                                                                    {{user_timezone_booking_dict[booking.id].date}}
+                                                                                </strong>
+                                                                            </div>
+
+                                                                            <div class="student-list-time-slot">
+                                                                                <i class="fas fa-clock fa-2x" style="color: lightslategray"></i>
+                                                                                <strong id="student-list-time-slot">
+                                                                                    {{user_timezone_booking_dict[booking.id].slot}}
+                                                                                </strong>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="student-list-progress-col">
+
+                                                                            {% if booking.lecture_complete == 'true'%}
+                                                                                <span class="lesson-attend"></i><i class="fas fa-check" style="color: limegreen"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                                            {% else %}
+                                                                                <span class="lesson-attend"><i class="fas fa-times" style="color:red;"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                                            {% endif %}
+
+                                                                            {% if booking.student_present == 'true'%}
+                                                                                <span class="student-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="student-present">Student Present</p></span>
+                                                                            {% else %}
+                                                                                <span class="student-attend"><i class="fas fa-times" style="color:red;"></i><p class="student-present">Student Present</p></span>
+                                                                            {% endif %}
+
+                                                                            {% if booking.teacher_present == 'true'%}
+                                                                                <span class="teacher-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="teacher-present">Teacher Present</p></span>
+                                                                            {% else %}
+                                                                                <span class="teacher-attend"><i class="fas fa-times" style="color:red;"></i><p class="teacher-present">Teacher Present</p></span>
+                                                                            {% endif %}
+                                                                        </div>
+
+
+                                                                        <div class="student-booking-feedback-container">
+                                                                                <div class="student-booking-feedback-container-heading">
+                                                                                    <strong>Teacher Feedback</strong>
+                                                                                </div>
+                                                                                <div class="student-booking-feedback-container-text">
+                                                                                    <textarea disabled name="" id="" cols="18" rows="6">{{booking.teacher_feedback}}</textarea>
+                                                                                </div>
+
+                                                                            </div>
+                                                                    </div>
+                                                                </div></td>
+                                                                </tr>
+
+                                                            {% endfor %}
+
+
+                                                    </tbody>
+                                    </table>
+
+
+
+								</div>
+
+
+								<div class="tab-pane fade" id="student-lesson-most-recent-tab-content" role="tabpanel" aria-labelledby="nav-most-recent-tab">
+									<div class="student-most-recent-wrapper">
+                                            {% for booking in student_dict.bookings %}
+                                                {% if booking.lecture_complete == 'false' %}
+                                                    <div class="student-lessons-main-list">
+
+                                                <div class="student-lessons-list">
+                                                    <div class="student-list-course-col">
+                                                        <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_course[all_lessons[booking.lesson_id].course_id].course_image)}}"
+                                                             alt=""
+                                                             class="avatar student-list-course-img">
+                                                        <strong class="student-list-course-name">{{all_course[all_lessons[booking.lesson_id].course_id].course_name}}</strong>
+
+                                                    </div>
+
+
+                                                    <div class="student-list-lesson-col">
+                                                        <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_lessons[booking.lesson_id].lesson_code+'/'+all_lessons[booking.lesson_id].lesson_image)}}"
+                                                             alt=""
+                                                             class="avatar student-list-lesson-img">
+                                                        <strong class="student-list-lesson-name">{{all_lessons[booking.lesson_id].lesson_name}}</strong>
+
+                                                    </div>
+
+
+                                                    <div class="student-list-teacher-col">
+                                                        <img src="{{url_for('static',filename='data/teachers/'+all_teachers[booking.teacher_id].first_name+'_'+all_teachers[booking.teacher_id].email+'/'+all_teachers[booking.teacher_id].image_file)}}"
+                                                             alt=""
+                                                             class="avatar student-list-teacher-img">
+                                                        <strong class="student-list-teacher-name">{{all_teachers[booking.teacher_id].first_name}} {{all_teachers[booking.teacher_id].last_name}}</strong>
+
+
+
+                                                    </div>
+                                                    <div class="student-list-datetime-col">
+                                                        <div class="student-list-date">
+                                                            <i class="fas fa-calendar-week fa-2x" style="color: lightslategray"></i>
+                                                            <strong id="student-list-date">
+                                                                {{user_timezone_booking_dict[booking.id].date}}
+                                                            </strong>
+                                                        </div>
+
+                                                        <div class="student-list-time-slot">
+                                                            <i class="fas fa-clock fa-2x" style="color: lightslategray"></i>
+                                                            <strong id="student-list-time-slot">
+                                                                {{user_timezone_booking_dict[booking.id].slot}}
+                                                            </strong>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="student-list-progress-col">
+
+                                                        {% if booking.lecture_complete == 'true'%}
+                                                            <span class="lesson-attend"></i><i class="fas fa-check" style="color: limegreen"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                        {% else %}
+                                                            <span class="lesson-attend"><i class="fas fa-times" style="color:red;"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                        {% endif %}
+
+                                                        {% if booking.student_present == 'true'%}
+                                                            <span class="student-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="student-present">Student Present</p></span>
+                                                        {% else %}
+                                                            <span class="student-attend"><i class="fas fa-times" style="color:red;"></i><p class="student-present">Student Present</p></span>
+                                                        {% endif %}
+
+                                                        {% if booking.teacher_present == 'true'%}
+                                                            <span class="teacher-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="teacher-present">Teacher Present</p></span>
+                                                        {% else %}
+                                                            <span class="teacher-attend"><i class="fas fa-times" style="color:red;"></i><p class="teacher-present">Teacher Present</p></span>
+                                                        {% endif %}
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+								</div>
+
+
+								<div class="tab-pane fade" id="student-lesson-missed-tab-content" role="tabpanel" aria-labelledby="nav-absent-tab" style="padding:20px;">
+									<table id="all-missed-lessons-table" class="table table-striped table-bordered all-missed-lessons-table" style="width:100%">
+                                                        <thead>
+                                                                <tr>
+                                                                   <th style="text-align: center;!important">Click here to sort</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="all-missed-lessons-table-body">
+
+                                                                {% for booking in student_dict.bookings %}
+                                                                    {% if booking.lecture_complete == 'true' and (booking.teacher_present == 'false' or booking.student_present == 'false') %}
+                                                                        <tr><td><div class="student-lessons-main-list">
+
+                                                                        <div class="student-lessons-list">
+                                                                            <div class="student-list-course-col">
+                                                                                <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_course[all_lessons[booking.lesson_id].course_id].course_image)}}"
+                                                                                     alt=""
+                                                                                     class="avatar student-list-course-img">
+                                                                                <strong class="student-list-course-name">{{all_course[all_lessons[booking.lesson_id].course_id].course_name}}</strong>
+
+                                                                            </div>
+
+
+                                                                            <div class="student-list-lesson-col">
+                                                                                <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_lessons[booking.lesson_id].lesson_code+'/'+all_lessons[booking.lesson_id].lesson_image)}}"
+                                                                                     alt=""
+                                                                                     class="avatar student-list-lesson-img">
+                                                                                <strong class="student-list-lesson-name">{{all_lessons[booking.lesson_id].lesson_name}}</strong>
+
+                                                                            </div>
+
+
+                                                                            <div class="student-list-teacher-col">
+                                                                                <img src="{{url_for('static',filename='data/teachers/'+all_teachers[booking.teacher_id].first_name+'_'+all_teachers[booking.teacher_id].email+'/'+all_teachers[booking.teacher_id].image_file)}}"
+                                                                                     alt=""
+                                                                                     class="avatar student-list-teacher-img">
+                                                                                <strong class="student-list-teacher-name">{{all_teachers[booking.teacher_id].first_name}} {{all_teachers[booking.teacher_id].last_name}}</strong>
+
+
+
+                                                                            </div>
+                                                                            <div class="student-list-datetime-col">
+                                                                                <div class="student-list-date">
+                                                                                    <i class="fas fa-calendar-week fa-2x" style="color: lightslategray"></i>
+                                                                                    <strong id="student-list-date">
+                                                                                        {{user_timezone_booking_dict[booking.id].date}}
+                                                                                    </strong>
+                                                                                </div>
+
+                                                                                <div class="student-list-time-slot">
+                                                                                    <i class="fas fa-clock fa-2x" style="color: lightslategray"></i>
+                                                                                    <strong id="student-list-time-slot">
+                                                                                        {{user_timezone_booking_dict[booking.id].slot}}
+                                                                                    </strong>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="student-list-progress-col">
+
+                                                                                {% if booking.lecture_complete == 'true'%}
+                                                                                    <span class="lesson-attend"></i><i class="fas fa-check" style="color: limegreen"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                                                {% else %}
+                                                                                    <span class="lesson-attend"><i class="fas fa-times" style="color:red;"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                                                {% endif %}
+
+                                                                                {% if booking.student_present == 'true'%}
+                                                                                    <span class="student-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="student-present">Student Present</p></span>
+                                                                                {% else %}
+                                                                                    <span class="student-attend"><i class="fas fa-times" style="color:red;"></i><p class="student-present">Student Present</p></span>
+                                                                                {% endif %}
+
+                                                                                {% if booking.teacher_present == 'true'%}
+                                                                                    <span class="teacher-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="teacher-present">Teacher Present</p></span>
+                                                                                {% else %}
+                                                                                    <span class="teacher-attend"><i class="fas fa-times" style="color:red;"></i><p class="teacher-present">Teacher Present</p></span>
+                                                                                {% endif %}
+                                                                            </div>
+
+
+                                                                            <div class="student-booking-feedback-container">
+                                                                                <div class="student-booking-feedback-container-heading">
+                                                                                        Teacher Feedback
+                                                                                </div>
+                                                                                <div class="student-booking-feedback-container-text">
+                                                                                    <textarea disabled name="" id="" cols="18" rows="6">{{booking.teacher_feedback}}</textarea>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div></td></tr>
+                                                                        {% endif %}
+
+
+                                                                {% endfor %}
+                                                                </tbody>
+                                    </table>
+
+                                </div>
+
+								<div class="tab-pane fade" id="student-lesson-successful-tab-content" role="tabpanel" aria-labelledby="nav-successful-tab" style="padding:20px;">
+                                    <table id="all--succesful-lessons-table" class="table table-striped table-bordered all--succesful-lessons-table" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align: center;!important">Click here to sort</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="all--succesful-lessons-table-body">
+                                                            {% for booking in student_dict.bookings %}
+                                                                {% if booking.lecture_complete == 'true' and (booking.teacher_present == 'true' and booking.student_present == 'true') %}
+                                                                    <tr><td><div class="student-lessons-main-list">
+
+                                                                    <div class="student-lessons-list">
+                                                                        <div class="student-list-course-col">
+                                                                            <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_course[all_lessons[booking.lesson_id].course_id].course_image)}}"
+                                                                                 alt=""
+                                                                                 class="avatar student-list-course-img">
+                                                                            <strong class="student-list-course-name">{{all_course[all_lessons[booking.lesson_id].course_id].course_name}}</strong>
+
+                                                                        </div>
+
+
+                                                                        <div class="student-list-lesson-col">
+                                                                            <img src="{{url_for('static',filename='data/courses/'+all_course[all_lessons[booking.lesson_id].course_id].course_code+'/'+all_lessons[booking.lesson_id].lesson_code+'/'+all_lessons[booking.lesson_id].lesson_image)}}"
+                                                                                 alt=""
+                                                                                 class="avatar student-list-lesson-img">
+                                                                            <strong class="student-list-lesson-name">{{all_lessons[booking.lesson_id].lesson_name}}</strong>
+
+                                                                        </div>
+
+
+                                                                        <div class="student-list-teacher-col">
+                                                                            <img src="{{url_for('static',filename='data/teachers/'+all_teachers[booking.teacher_id].first_name+'_'+all_teachers[booking.teacher_id].email+'/'+all_teachers[booking.teacher_id].image_file)}}"
+                                                                                 alt=""
+                                                                                 class="avatar student-list-teacher-img">
+                                                                            <strong class="student-list-teacher-name">{{all_teachers[booking.teacher_id].first_name}} {{all_teachers[booking.teacher_id].last_name}}</strong>
+
+
+
+                                                                        </div>
+                                                                        <div class="student-list-datetime-col">
+                                                                            <div class="student-list-date">
+                                                                                <i class="fas fa-calendar-week fa-2x" style="color: lightslategray"></i>
+                                                                                <strong id="student-list-date">
+                                                                                    {{user_timezone_booking_dict[booking.id].date}}
+                                                                                </strong>
+                                                                            </div>
+
+                                                                            <div class="student-list-time-slot">
+                                                                                <i class="fas fa-clock fa-2x" style="color: lightslategray"></i>
+                                                                                <strong id="student-list-time-slot">
+                                                                                    {{user_timezone_booking_dict[booking.id].slot}}
+                                                                                </strong>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="student-list-progress-col">
+
+                                                                            {% if booking.lecture_complete == 'true'%}
+                                                                                <span class="lesson-attend"></i><i class="fas fa-check" style="color: limegreen"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                                            {% else %}
+                                                                                <span class="lesson-attend"><i class="fas fa-times" style="color:red;"></i><p class="lesson-taken">Lesson Taken</p></span>
+                                                                            {% endif %}
+
+                                                                            {% if booking.student_present == 'true'%}
+                                                                                <span class="student-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="student-present">Student Present</p></span>
+                                                                            {% else %}
+                                                                                <span class="student-attend"><i class="fas fa-times" style="color:red;"></i><p class="student-present">Student Present</p></span>
+                                                                            {% endif %}
+
+                                                                            {% if booking.teacher_present == 'true'%}
+                                                                                <span class="teacher-attend"><i class="fas fa-check" style="color: limegreen"></i><p class="teacher-present">Teacher Present</p></span>
+                                                                            {% else %}
+                                                                                <span class="teacher-attend"><i class="fas fa-times" style="color:red;"></i><p class="teacher-present">Teacher Present</p></span>
+                                                                            {% endif %}
+                                                                        </div>
+
+
+
+                                                                        <div class="student-booking-feedback-container">
+                                                                            <div class="student-booking-feedback-container-heading">
+                                                                                    <strong>Teacher Feedback</strong>
+                                                                            </div>
+                                                                            <div class="student-booking-feedback-container-text">
+                                                                                <textarea disabled name="" id="" cols="18" rows="6">{{booking.teacher_feedback}}</textarea>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div></td></tr>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                         </tbody>
+                                        </table>
+                                </div>
+
+
+							</div>
+
+
+
+
+						</div>
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-course-material-content" role="tabpanel" aria-labelledby="student-course-material-tab">
+						   <div class="course-material-header">
+
+								<img class="student-lessons-header-img" src="{{url_for('static',filename='html_pics/st-coursematerial.png')}}" alt="">
+
+						   </div>
+
+
+						   <div class="course-material-slider-main">
+							  <button class="btn course-material-arrow-left"><i class="fas fa-arrow-left"></i></button>
+							  <div class="course-material-slider">
+								  {% for lessons in my_lessons%}
+									  <div class="course-material-slide">
+										<strong>{{lessons.course.course_name}}</strong>
+										<h4>{{lessons.lesson_name}}</h4>
+
+										<button class="btn course-material-details-button" type="button" id="{{lessons.id}}"><p>View Course Content</p></button>
+                                          <a href="{{lessons.lesson_homework}}"><button class="btn course-material-details-button" type="button" id="{{lessons.id}}"><p>Download Homework</p></button></a>
+									 </div>
+								  {% endfor %}
+
+
+
+							  </div>
+							  <button class="btn course-material-arrow-right"><i class="fas fa-arrow-right"></i></button>
+						   </div>
+
+						   <div class="powerpoint-slides-main-container">
+
+						   </div>
+
+						</div>
+
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-book-lesson-content" role="tabpanel" aria-labelledby="student-book-lessons-tab">
+							{%if student.number_of_lessons_remaining==0%}
+                                <div class="no-lessons-heading-container">
+
+                                    <div class="no-lessons-heading">
+                                        <h1>Unfortunately you have no lessons remaining :(</h1>
+                                        <h3>Please buy new lessons!</h3>
+                                        <button type="button" class="button-payment-no-lessons" style="border-radius: 27px">
+                                            <a class="nav-link"><i class="fas fa-receipt" style="margin: 0 0.4em; font-size: 1.3em!important; color: inherit;"></i>Payment</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            {%else%}
+
+                                <div class="book-lessons-header">
+
+                                    <img class="student-booking-header-img" src="{{url_for('static',filename='html_pics/st-booklessons.png')}}" alt="">
+
+                                </div>
+                                    <div class="book-lessons-main-container-1">
+
+
+                                    <span class="book-lesson-heading"><h1 id="book-lesson-heading">Select Course, Lesson & Teacher Below</h1></span>
+
+                                        <br>
+                                    <div class="show-boxes-upon-select">
+                                        <div class="select-boxes show-course-boxes-upon-select">
+
+                                            <img src=""
+                                                 alt=""
+                                                 class="avatar img-for-select course-img-for-select ">
+                                            <div class="content-div-for-select">
+                                                <strong class="course-name-select name-select">Course Name</strong>
+                                                <p class="course-description description-for-select"></p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="select-boxes show-lesson-boxes-upon-select">
+
+                                            <img src="{{url_for('static',filename='html_pics/woman.jpg')}}"
+                                                 alt=""
+                                                 class="avatar img-for-select lesson-img-for-select ">
+
+                                            <div class="content-div-for-select">
+                                                <strong class="lesson-name-select name-select">Course Name</strong>
+                                                <p class="lesson-description description-for-select"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="select-boxes show-teacher-boxes-upon-select">
+
+                                            <img src="{{url_for('static',filename='html_pics/woman.jpg')}}"
+                                                 alt=""
+                                                 class="avatar img-for-select course-img-for-select ">
+
+                                            <div class="content-div-for-select">
+                                                <strong class="teacher-name-select name-select">Course Name</strong>
+                                                <p class="teacher-description description-for-select"></p>
+                                            </div>
+
+                                        </div>
+
+                                        <button class="btn btn-outline-danger book-lesson-reset-button" type="button">Reset</button>
+
+                                    </div>
+
+                                    <div class="book-lessons-select-container">
+                                        <select name="options" class="form-control select-options-course booking-options" id="select-course">
+                                                <option disabled selected value="0"> -- Select Course -- </option>
+                                        </select>
+
+                                        <select class="form-control select-options-lesson booking-options" id="select-lessons">
+                                                <option disabled selected value="0"> -- Select Lesson -- </option>
+
+
+                                        </select>
+
+                                        <select class="form-control select-options-teacher booking-options" id="select-teachers">
+                                                <option disabled selected value="0"> -- Select Teacher -- </option>
+
+                                        </select>
+                                    </div>
+
+
+
+                                </div>
+                                    <div class="container main-calendar-container" style="display: none;">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="calendar-container">
+                                        <div class="calendar-container-header">
+                                            <div class="calendar-container-heading-my-timezone">
+                                                <div class="calendar-container-heading-my-timezone-top">
+                                                    My Current Time Zone :
+                                                </div>
+                                                <div class="calendar-container-heading-my-timezone-bottom">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="calendar-container-heading-date">
+                                                <div class="extra-space"></div>
+                                                <h4 class="date-range" id="date-range" >
+                                                    May 1-7,2020
+                                                </h4>
+                                            </div>
+                                            <div class="calendar-container-heading-timezone">
+
+                                            </div>
+                                        </div>
+                                        <div class="calendar-container-main-body">
+                                            <div class="calendar-container-main-body-left-section">
+                                                <button class="wrapper-icons btn" type="button" id="calendar-left-button" style="outline:none">
+                                                    <i class="fa fa-angle-left fa-3x back-calendar-icon"></i>
+                                                    </button>
+                                            </div>
+                                            <div class="calendar-container-main-body-center-section">
+
+                                                    <div class="calendar-container-main-body-center-section-day-1">
+                                                        <div class="calendar-days-column-heading" id="calendar-days-column-heading-1">
+
+                                                            <div class="calendar-days-column-heading-bottom-line"></div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="calendar-container-main-body-center-section-day-2">
+                                                        <div class="calendar-days-column-heading" id="calendar-days-column-heading-2">
+
+                                                            <div class="calendar-days-column-heading-bottom-line">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="calendar-container-main-body-center-section-day-3">
+                                                        <div class="calendar-days-column-heading" id="calendar-days-column-heading-3">
+
+                                                            <div class="calendar-days-column-heading-bottom-line">
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="calendar-container-main-body-center-section-day-4">
+                                                        <div class="calendar-days-column-heading" id="calendar-days-column-heading-4">
+
+                                                            <div class="calendar-days-column-heading-bottom-line"></div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="calendar-container-main-body-center-section-day-5">
+                                                        <div class="calendar-days-column-heading" id="calendar-days-column-heading-5">
+
+                                                            <div class="calendar-days-column-heading-bottom-line"></div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="calendar-container-main-body-center-section-day-6">
+                                                        <div class="calendar-days-column-heading" id="calendar-days-column-heading-6">
+
+                                                            <div class="calendar-days-column-heading-bottom-line"></div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="calendar-container-main-body-center-section-day-7">
+                                                        <div class="calendar-days-column-heading" id="calendar-days-column-heading-7">
+                                                            <div class="calendar-days-column-heading-bottom-line"></div>
+                                                        </div>
+
+                                                    </div>
+
+                                            </div>
+                                            <div class="calendar-container-main-body-right-section">
+                                                <button class="wrapper-icons btn" type="button" id="calendar-right-button">
+                                                <i class="fa fa-angle-right fa-3x forward-calendar-icon"></i>
+                                                    </button>
+                                            </div>
+                                            <button type="button" class="calendar-container-main-body-center-section-expand" id="expand-button">
+                                                Expand
+                                            </button>
+                                        </div>
+                                    </div>
+                                        </div>
+                                        <div class="col-md-2 column-selected-slot">
+                                            <div class="selected-slot-div">
+                                                <h3 class="selected-slot-heading">
+                                                    Selected Slot
+                                                </h3>
+                                                <div class="selected-slot-content">
+                                                        <div class="student-list-date">
+                                                            <i class="fas fa-calendar-week fa-2x" style="color: lightslategray"></i>
+                                                            <strong class="booking-student-date">
+                                                                day
+                                                            </strong>
+                                                        </div>
+
+                                                        <div class="student-list-time-slot">
+                                                            <i class="fas fa-clock fa-2x" style="color: lightslategray"></i>
+                                                            <strong class="booking-student-time-slot">
+                                                                slot
+                                                            </strong>
+                                                        </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="selected-everything-booking-button-div">
+                                                <button type="button" class="selected-everything-booking-button btn" style="display: none;">
+                                                    BOOK LESSON
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {%endif%}
+
+						</div>
+
+
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-teachers-content" role="tabpanel" aria-labelledby="student-teachers-tab">
+							<div class="student-teachers-content-header">
+								<img class="student-booking-header-img" src="{{url_for('static',filename='html_pics/st-teachers.png')}}" alt="">
+							</div>
+
+							<div class="student-teachers-main-container">
+
+							{% for teacher in teachers %}
+								<div class="student-teacher-1" id="{{teacher.id}}">
+									<img src="{{url_for('static',filename='data/teachers/'+teacher.first_name+'_'+teacher.email+'/'+teacher.image_file)}}"
+									     alt=""
+									     class="student-teacher-img">
+
+									<span class="teacher-name-with-flag">
+										<strong>{{teacher.first_name}} {{teacher.last_name}}</strong>
+										<img src="https://www.countryflags.io/PK/flat/24.png">
+										<div class="star-outer">
+                                            <div class="star-inner"></div>
+                                        </div>
+										<span class="number-rating" style="margin-left: 5px; font-size: 1.2em"><strong></strong></span>
+									</span>
+
+									<div class="student-teacher-about">
+										<span class="number-of-lessons-of-teacher"><i class="fas fa-record-vinyl" style="margin-right: 10px"></i> <strong style="font-weight: 600"> {{teacher.completed_lessons}}</strong><strong style="font-weight: 300"> lessons</strong></span>
+										<span class="teacher-one-line">
+											<p>{{teacher.one_line_description}}</p>
+										</span>
+
+										<button class="btn student-teacher-detail-button" type="button"><p>View Details</p></button>
+
+									</div>
+
+
+								</div>
+							{% endfor %}
+
+							</div>
+
+							<div class="student-teacher-all-details">
+								<div class="student-teacher-about-details">
+									<strong>About the Teacher</strong>
+									<p class="teacher-details-about-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque enim eum eveniet provident sunt ullam. Aliquam animi
+										beatae corporis deleniti dignissimos doloribus eius esse eum eveniet expedita, facere facilis fuga illum laudantium minima,
+										molestias non nostrum officiis praesentium quaerat quidem quis quisquam, repudiandae tempore velit! Aspernatur consequatur cum
+										cupiditate delectus deleniti dignissimos, ducimus esse ipsum laudantium modi neque nesciunt numquam obcaecati omnis quasi quod
+										reiciendis ut veniam voluptates voluptatum. Blanditiis error numquam repellendus vitae? Accusantium autem commodi ea enim error
+										exercitationem explicabo fugiat incidunt laboriosam non placeat, porro quae quam quia quis reiciendis repellat soluta? Culpa ducimus
+										exercitationem quos?</p>
+								</div>
+
+
+
+								<button class="student-teacher-detail-cancel-button" type="button">Back</button>
+
+							</div>
+
+						</div>
+
+
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-courses-content" role="tabpanel" aria-labelledby="student-courses-tab">
+						   <div class="student-course-header">
+							   <img class="student-booking-header-img" src="{{url_for('static',filename='html_pics/st-viewlessons.png')}}" alt="">
+						   </div>
+
+						   <div class="student-courses-main-flex-container">
+
+                               <table id="all-courses-table" class="table table-striped table-bordered all-courses-table" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="all-courses-table-body">
+                                                       {% for course in courses %}
+                                                          <tr><td><div class="student-course-div">
+                                                             <div class="student-course-inner-div">
+                                                                <div class="student-course-image-div">
+                                                                   <img src="{{url_for('static',filename='data/courses/'+course.course_code+'/'+course.course_image)}}"
+                                                                        alt=""
+                                                                        class="student-course-image">
+                                                                </div>
+
+                                                                <div class="student-course-content-div">
+                                                                   <div class="student-course-name-div">
+                                                                      <h5>{{course.course_name}}</h5>
+                                                                      <p>{{course.course_description}}</p>
+                                                                   </div>
+
+                                                                   <div class="student-course-details-div">
+                                                                      <span class="course-lessons-span"><i class="far fa-dot-circle" style="color: #aeb5bc; margin-right: 0.5em; font-size: 0.8em"></i><strong>{{ course.lessons|length }}</strong></span>
+                                                                   </div>
+
+                                                                   <div class="student-course-buttons" id="{{course.id}}">
+                                                                      <button class="btn student-course-lessons-button" type="button"><p>View Lessons</p></button>
+
+                                                                   </div>
+                                                                </div>
+
+                                                             </div>
+                                                          </div></td></tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                </table>
+
+
+						   </div>
+
+						   <div class="student-course-lessons">
+
+							  <div class="wrapper">
+								 <div class="title" id="course-lessons-info-title">Course Name Lessons</div>
+
+								 <div class="accordion-wrapper">
+
+
+
+								 </div>
+							  </div>
+							  <button class="student-course-lesson-back-button" type="button">Back</button>
+						   </div>
+
+
+
+						</div>
+
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-payment-content" role="tabpanel" aria-labelledby="student-payment-tab">
+
+                            <div class="student-course-header">
+                                   <img class="student-booking-header-img" src="{{url_for('static',filename='html_pics/st-buylessons.png')}}" alt="">
+                               </div>
+                            <div class="payment-selector-container">
+                                <div class="container payment-selector">
+                                    <strong>Select No. of Lessons</strong>
+                                    <input class="select-number-of-lessons" type="text">
+                                    <div class="usd-div">
+                                        <strong id="usd">USD$</strong>
+                                        <input class="calculated-amount-text" type="text" disabled>
+                                    </div>
+                                    <button class="btn make-payment-button"><p>Make Payment</p></button>
+                                </div>
+
+                            </div>
+                            <div class="paypal-div" id="{{student.id}}" style="display: none;">
+
+                            </div>
+						</div>
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-settings-content" role="tabpanel" aria-labelledby="student-settings-tab">
+							<div class="student-setting-header">
+								<img class="student-booking-header-img" src="{{url_for('static',filename='html_pics/st-setting.png')}}" alt="">
+							</div>
+
+
+							<div class="student-settings-main-container">
+								<form method="POST" action="" enctype="multipart/form-data">
+									{{ update_form.hidden_tag() }}
+									<div class="student-setting-change-profile-div">
+										<div class="student-setting-change-profile-inner-row">
+											<div class="student-setting-change-profile-inner-cols">
+												<div class="student-setting-change-profile-circle">
+													<!-- User Profile Image -->
+													<img class="student-profile-pic" src="{{url_for('static',filename='data/students/'+student.first_name+'_'+student.email+'/'+student.image_file)}}">
+
+													<!-- Default Image -->
+													<!-- <i class="fa fa-user fa-5x"></i> -->
+													<div class="student-setting-p-image">
+														<i class="fa fa-camera student-img-upload-button fa-2x"></i>
+
+														   {{ update_form.picture(class="file-upload",id="student-profile-img-input") }}
+															{% if update_form.picture.errors %}
+																{% for error in update_form.picture.errors%}
+																	<span class="text-danger"> {{ error }}</span></br>
+																{% endfor %}
+															{% endif %}
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="student-setting-change-name-div">
+										<span class="change-name-heading"><strong>Change Name</strong></span>
+
+										<hr>
+
+										<div class="student-settings-first-row">
+
+
+											<div class="student-settings-name-first-col">
+												<strong>First Name</strong>
+											</div>
+											<div class="student-settings-name-second-col">
+												{% if update_form.first_name.errors %}
+												{{ update_form.first_name(class="form-control is-invalid" , id="student-settings-name-input",disabled=True) }}
+													<div class="invalid-feedback">
+														{% for error in update_form.first_name.errors%}
+															<span> {{ error }}</span>
+														{% endfor %}
+													</div>
+												{% else %}
+													{{ update_form.first_name(class="form-control" , id="student-settings-name-input",disabled=True) }}
+												{% endif %}
+											</div>
+
+											<div class="student-settings-first-col">
+												<strong >Last Name</strong>
+											</div>
+											<div class="student-settings-name-second-col">
+												{% if update_form.last_name.errors %}
+												{{ update_form.last_name(class="form-control is-invalid" , id="student-settings-name-input",disabled=True) }}
+													<div class="invalid-feedback">
+														{% for error in update_form.last_name.errors%}
+															<span> {{ error }}</span>
+														{% endfor %}
+													</div>
+												{% else %}
+													{{ update_form.last_name(class="form-control" , id="student-settings-name-input",disabled=True) }}
+												{% endif %}
+											</div>
+										</div>
+									</div>
+
+
+
+
+									<div class="student-setting-change-password-div">
+
+										<span class="change-password-heading"><strong>Change Password</strong></span>
+
+										<hr>
+
+										<div class="student-settings-third-row">
+											<div class="student-settings-password-first-col">
+												<strong>New Password</strong>
+											</div>
+											<div class="student-settings-password-second-col">
+												{% if update_form.password.errors %}
+													{{ update_form.password(class="form-control is-invalid" , id="student-settings-curr-password-input") }}
+													<div class="invalid-feedback">
+														{% for error in update_form.password.errors%}
+															<span> {{ error }}</span>
+														{% endfor %}
+													</div>
+												{% else %}
+													{{ update_form.password(class="form-control" , id="student-settings-curr-password-input") }}
+												{% endif %}
+											</div>
+										</div>
+
+										<div class="student-settings-fourth-row">
+											<div class="student-settings-password-second-row-first-col">
+												<strong>Confirm Password</strong>
+											</div>
+											<div class="student-settings-password-second-row-second-col">
+												{% if update_form.confirm_password.errors %}
+													{{ update_form.password(class="form-control is-invalid" , id="student-settings-new-password-input") }}
+													<div class="invalid-feedback">
+														{% for error in update_form.confirm_password.errors%}
+															<span> {{ error }}</span>
+														{% endfor %}
+													</div>
+												{% else %}
+													{{ update_form.confirm_password(class="form-control" , id="student-settings-new-password-input") }}
+												{% endif %}
+											</div>
+										</div>
+
+
+
+									</div>
+
+
+									{{ update_form.submit(class="btn btn-success student-settings-save-button",style="float: right; outline: none!important; box-shadow: none!important; font-size: 0.9em; font-weight: 300!important;") }}
+								</form>
+							</div>
+
+						</div>
+
+                        <div class="tab-pane tab-pane-common-student fade" id="student-complain-content" role="tabpanel" aria-labelledby="student-complain-tab">
+							<div class="student-setting-header">
+								<img class="student-booking-header-img" src="{{url_for('static',filename='html_pics/st-customersupport.png')}}" alt="">
+							</div>
+                            <div class="complain-content-container">
+                                <div class="complain-heading">
+                                    Select a booking if you have any complaint regarding a particular booking.
+                                </div>
+                                <select name="" id="student-booking-complain-dropdown">
+                                    <option disabled selected value="0">-- Select Booking --</option>
+                                    {%for booking in student_dict.bookings%}
+                                        <option value="{{booking.id}}">{{all_course[all_lessons[booking.lesson_id].course_id].course_name}} - {{all_lessons[booking.lesson_id].lesson_name}} - {{all_teachers[booking.teacher_id].first_name}} - {{user_timezone_booking_dict[booking.id].date}} - {{user_timezone_booking_dict[booking.id].slot}}</option>
+                                    {%endfor%}
+                                </select>
+                                <div class="complain-text-heading">
+                                    Please Describe your issue:
+                                </div>
+                                <textarea name="" id="complain-text" cols="60" rows="10"></textarea>
+                                <div>
+                                    <button class="btn submit-complain">
+                                        Submit Complain
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                    <table id="student-complain-table" class="table table-striped table-bordered student-complain-table" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Complain ID</th>
+                                                <th>Booking ID</th>
+                                                <th>Course Name</th>
+                                                <th>Lesson Name</th>
+                                                <th>Teacher Name</th>
+                                                <th>Date</th>
+                                                <th>Slot</th>
+                                                <th>Complain</th>
+                                                <th>Resolved</th>
+                                                <th>Comments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="complain-table-body">
+
+                                                {%for complain in complains%}
+													{% if complain.student_id == current_user.id%}
+														<tr>
+															<td>{{complain.id}}</td>
+															{%if complain.booking_id%}
+																<td>{{complain.booking_id}}</td>
+																<td>{{all_course[all_lessons[all_bookings[complain.booking_id].lesson_id].course_id].course_name}}</td>
+																<td>{{all_lessons[all_bookings[complain.booking_id].lesson_id].lesson_name}}</td>
+																<td>{{all_teachers[all_bookings[complain.booking_id].teacher_id].first_name}}</td>
+																<td>{{user_timezone_booking_dict[complain.booking_id].date}}</td>
+																<td>{{user_timezone_booking_dict[complain.booking_id].slot}}</td>
+																<td>{{complain.complain}}</td>
+																{%if complain.resolved%}
+																	<td><i class="fas fa-check-circle" style="color: green;"></i></td>
+                                                                    <td>Please Check Your Email</td>
+																{%else%}
+																	<td><i class="far fa-times-circle" style="color: red;"></i></td>
+                                                                    <td></td>
+																{%endif%}
+															{%else%}
+																<td>None</td>
+																<td>None</td>
+																<td>None</td>
+																<td>None</td>
+																<td>None</td>
+																<td>None</td>
+																<td>{{complain.complain}}</td>
+																{%if complain.resolved%}
+																	<td><i class="fas fa-check-circle" style="color: green;"></i></td>
+                                                                <td>Please Check Your Email</td>
+																{%else%}
+																	<td><i class="far fa-times-circle" style="color: red;"></i></td>
+                                                                    <td></td>
+																{%endif%}
+															{%endif%}
+														</tr>
+													{% endif %}
+                                                {%endfor%}
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+						</div>
+
+                        <div class="tab-pane tab-pane-common-student fade" id="student-lecture-videos-content" role="tabpanel" aria-labelledby="student-lecture-videos-tab">
+                           <div class="student-lecture-videos-banner">
+                               <img class="student-booking-header-img" src="{{url_for('static',filename='html_pics/st-lecturevids.png')}}" alt="">
+                           </div>
+                            <div class="student-lecture-videos-container">
+                               {%for vids in videos%}
+                                    <article class="video">
+                                      <figure>
+                                         <a class="fancybox fancybox.iframe" href="{{vids.link}}">
+                                            <img class="videoThumb" src="{{url_for('static',filename='html_vids/'+vids.thumbnail)}}"></a>
+                                      </figure>
+                                      <h2 class="videoTitle">{{vids.name}}</h2>
+                                   </article>
+                               {%endfor%}
+                            </div>
+                        </div>
+
+                        <div class="tab-pane tab-pane-common-student fade" id="student-terms-and-cond-content" role="tabpanel" aria-labelledby="student-terms-and-cond-tab">
+                           <div class="student-terms-wrapper">
+                               <h3>Terms and conditions for Students.</h3>
+                               <ul id="student-terms-list">
+                                   <li><p>The student should try to be on time so that he/she is able to complete the content provided for the lesson.</p></li>
+                                   <li><p>If in any case the student is unable to attend the class on time he/she is allowed to cancel the class 5 to 10 minutes before the lesson.</p></li>
+                                   <li><p>If in case the student is unable to cancel the lesson in given time he/she would be charged for the lesson as the teacher was there on time for the lesson, and will be paid for it too.</p></li>
+                                   <li><p>If in any case the teacher fails to conduct the class the student will be fully refunded or the fee would be adjusted in next lessons he/she takes.</p></li>
+                                   <li><p>In order to maintain the professional relationship between the teacher and student the student is suggested not to involve any inappropriate conversations.</p></li>
+                                   <li><p>If the students has any complaints with the teacher or the type of lesson he/she is allowed to complaint to the company.</p></li>
+                                   <li><p>Students are also suggested to have a noise free environment so that they can fully concentrate on the lesson without any distractions.</p></li>
+                                   <li><p>Use of stable internet connection is required so that there is not disturbance during the lesson.</p></li>
+                               </ul>
+                           </div>
+                        </div>
+
+
+						<div class="tab-pane tab-pane-common-student fade" id="student-logout-content" role="tabpanel" aria-labelledby="student-logout-tab">Logout</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+
+<script src="{{url_for('static',filename='scripts/jQuery.js')}}"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{{url_for('static',filename='scripts/slick.min.js')}}"></script>
+
+<script src="{{url_for('static',filename='scripts/tail.select-full.min.js')}}"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{url_for('static',filename='scripts/jquery.fancybox.min.js')}}"></script>
+
+
+
+<script src="https://www.paypal.com/sdk/js?client-id=AdFFsG_iV2q1K2IyvzO9nq3C309cIcaC7HH9ddTc_1XFbASY7wNp2Ddm80mZcPlGht3PNrX6L_RKbC8E"></script>
+<script>
+    $('.make-payment-button').click(function () {
+        $('.paypal-div').fadeOut(500);
+        $('.paypal-div').empty();
+        $('.paypal-div').fadeIn(500);
+        let amountt = $('.calculated-amount-text').val();
+        let num_of_lessons = $('.select-number-of-lessons').val();
+        let student_id_payment = $(".paypal-div").attr('id');
+        console.log(num_of_lessons);
+        // Add your client ID and secret
+        var PAYPAL_CLIENT = 'ADD CLIENT KEY HERE';
+        var PAYPAL_SECRET = 'ADD SECRET KEY HERE\n';
+
+        // Point your server to the PayPal API
+        var PAYPAL_ORDER_API = 'https://api.paypal.com/v2/checkout/orders/';
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+              // This function sets up the details of the transaction, including the amount and line item details.
+              return actions.order.create({
+                purchase_units: [{
+                  amount: {
+                    value: amountt
+                  }
+                }]
+              });
+            },
+            onApprove: function(data, actions) {
+              // This function captures the funds from the transaction.
+              return actions.order.capture().then(function(details) {
+                // This function shows a transaction success message to your buyer.
+                alert('Transaction completed by ' + details.payer.name.given_name);
+                $('.paypal-div').fadeOut(500);
+                $('.paypal-div').empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '/student_after_payment',
+
+                    data: {'lessons':num_of_lessons,'student_id':student_id_payment } ,
+                    success: function(data){
+                        window.location.href = 'studentpanel';
+                    }
+
+                });
+
+              });
+            },
+            onError: function (err) {
+            // Show an error page here, when an error occurs
+                alert("Transaction was unsuccessful! Please reload the page and try again!");
+            }
+          }).render('.paypal-div');
+    });
+
+
+
+
+</script>
+<script>
+    $(document).ready(function() {
+        $('.fancybox').fancybox({
+            padding    : 0,
+            maxWidth   : '100%',
+            maxHeight  : '100%',
+            width         : 560,
+            height     : 315,
+            autoSize   : true,
+            closeClick  : true,
+            openEffect  : 'elastic',
+            closeEffect : 'elastic'
+        });
+                    var slideIndex=0;
+				   $('.course-material-slider').slick({
+					   centerMode: true,
+					   slidesToShow: 1,
+					   autoplay: true,
+                       dots: true,
+					   rows: 0,
+					   prevArrow: $('.course-material-arrow-left'),
+					   nextArrow: $('.course-material-arrow-right'),
+				   });
+
+				   $('.course-material-details-button').click(function () {
+				   		$('.powerpoint-slides-main-container').html('');
+						let lesson_id = $(this).attr('id');
+						let this_lesson = all_lessons[lesson_id];
+					   $('.powerpoint-slides-main-container').css('display', 'flex').fadeIn(100);
+					   for (documents of this_lesson.lesson_documents){
+						   $('.powerpoint-slides-main-container').append('\t\t\t\t\t   <div class="powerpoint-slides-div"> <iframe src="'+documents.document+'" width="680" height="400" frameborder="0" scrolling="no"></iframe></div><div class="powerpoint-slides-description"><strong>Description</strong><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, illo.</p></div>');
+						}
+				   });
+        $('#student-course-material-tab').click(function () {
+                $('.course-material-slider').slick("refresh");
+        })
+    });
+</script>
+<script>
+
+	const all_bookings = {{all_bookings|safe}};
+	const all_slots = {{all_slots|safe}};
+	const all_teachers = {{all_teachers|safe}};
+	const all_course = {{all_course|safe}};
+	const all_lessons = {{all_lessons|safe}};
+	const all_dates = {{all_dates|safe}};
+	const all_students = {{all_students|safe}};
+	const user_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const all_teacher_dates = {{teacher_dates|safe}};
+	const all_complains = {{all_complains|safe}};
+	let timer = setInterval(function() {
+		let ddd = JSON.stringify({'all_bookings':all_bookings,'all_slots':all_slots,'all_dates':all_dates});
+		$.ajax({
+				type: 'POST',
+				url: '/studentdbchanges',
+
+				data: ddd ,
+				success: function(data){
+					if(data['val']===false){
+						pagerefresh();
+					}
+				}
+
+			});
+
+
+	},5000);
+	function pagerefresh(){
+		$.ajax({
+				type: 'POST',
+				url: '/studentpanel',
+
+				data: {'data':true} ,
+				success: function(data){
+					window.location.href = 'studentpanel';
+				}
+
+			});
+	};
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+
+				$('.student-course-lessons-button').click(function () {
+					let course_id = $(this).parent().attr('id');
+					let course = all_course[course_id];
+					$('#course-lessons-info-title').html(course.course_name+' Lessons');
+
+					for (lesson of course.lessons){
+						let string = "{{url_for('static',filename='data/courses/coursecode/lessoncode/image')}}".replace('coursecode',course.course_code);
+						string = string.replace('lessoncode',lesson.lesson_code);
+						string = string.replace('image',lesson.lesson_image);
+						$('.accordion-wrapper').append('<div class="accordion-item"><div class="accordion-tab">'+lesson.lesson_name+'<span id="arrow-span"><i class="fas fa-arrow-down"></i></span></div> <div class="accordion-content">  <div class="accordion-lesson-div"> <div class="accordion-lesson-img-div">  <img class="img-fluid" src="'+string+'" alt="">  </div>  <div class="accordion-lesson-content">  <h3>Lesson</h3>  <p>'+lesson.lesson_name+'</p>  </div>  </div>  </div>  </div>');
+
+					}
+
+
+
+
+
+				   $('.student-courses-main-flex-container').fadeOut(200);
+				   $('.student-course-lessons').fadeIn(500);
+
+				   });
+
+				$('.student-course-lesson-back-button').click(function () {
+					$('.accordion-wrapper').html('');
+					$('.student-course-lessons').fadeOut(500);
+				  $('.student-courses-main-flex-container').fadeIn(500);
+				   });
+
+
+				$('.accordion-wrapper').on("click","div.accordion-tab",function () {
+
+					$('.accordion-tab').each(function () {
+						$(this).removeClass('active');
+					});
+					$(this).addClass('active');
+				});
+
+
+});
+
+
+
+
+
+$('.student-teacher-detail-button').click(function () {
+    let teacher_id = $(this).parent().parent().attr('id');
+    $('.student-teachers-main-container').css('display', 'none');
+    $('.student-teacher-all-details').fadeIn(500);
+    $('.teacher-details-about-description').html(all_teachers[teacher_id]['about']);
+    for (education of all_teachers[teacher_id]['education']){
+
+        $('.teacher-education-main-flex').append('<div class="teacher-education-col-1"><span class="education-1-key"><strong>'+education.education+'</strong></span><span class="education-1-value"><strong>'+education.education_institution+'</strong></span></div>')
+    };
+    for (review of all_teachers[teacher_id]['reviews_by_students']){
+        let student = all_students[review.student_id];
+        let string = "{{url_for('static',filename='data/students/firstname_email/image')}}".replace('firstname',student.first_name);
+        string = string.replace('email',student.email);
+        string = string.replace('image',student.image_file);
+        $('.student-teacher-reviews-for-teacher-container').append('<div class="student-reviews-content"><img src="'+string+'" alt="" class="avatar teachers-review-profile-img">  <div class="teacher-review-area">  <span class="teacher-name"><strong style="font-size: 0.9em">'+student.first_name+' '+student.last_name+'</strong> <span><div class="star-outer">  <div class="star-inner"></div>  </div>  <span class="number-rating" style="margin-left: 5px; font-size: 0.8em"><strong></strong></span></span></span>  <span class="country-flag"><img src="https://www.countryflags.io/PK/flat/24.png"></span>  <span class="review-content-by-teacher"><p style="font-size: 0.8em">'+review.review+'</p></span> <span class="review-publish-time"><p>Published o-o day ago.</p></span>  </div>  <hr> </div>  <hr>')
+        };
+    $('.student-teachers-main-container').fadeOut(200);
+
+    $.scrollTo($('.student-teachers-content-header'), 500);
+});
+
+$('.student-teacher-detail-cancel-button').click(function () {
+    $('.teacher-education-main-flex').html('');
+    $('.student-teacher-reviews-for-teacher-container').html('');
+    $('.student-teacher-all-details').fadeOut(500);
+    $('.student-teachers-main-container').fadeIn(500);
+
+});
+
+$(document).ready(function() {
+
+
+var readURL = function(input) {
+if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('.student-profile-pic').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+}
+};
+
+
+$("#student-profile-img-input").on('change', function(){
+readURL(this);
+});
+
+$(".student-img-upload-button").on('click', function() {
+$("#student-profile-img-input").click();
+});
+});
+
+
+
+
+        let text = {{student_dict|safe}};
+
+		const texts = [text.first_name];
+		let count = 0;
+		let index = 0;
+		let currText = '';
+		let letters = '';
+
+		(function typeWrite() {
+		   if (count === texts.length) {
+		       count = 0;
+		   }
+
+		   currText = texts[count];
+		   letters = currText.slice(0, ++index);
+
+		   document.querySelector('.typewriter').textContent = letters;
+		   if(letters.length === currText.length) {
+		       count++;
+		       index = 0;
+		   }
+		   setTimeout(typeWrite, 300);
+		}());
+
+		$(".student-zoom-link").on('click','a.student-zoom-link-href',function(){
+
+			// console.log(latest_booking);
+			$.ajax({
+				type: 'POST',
+				url: '/studentpanel_zoom_attendace',
+
+				data: {'booking_id':latest_booking.id},
+				success: function(data){
+				}
+
+			});
+
+		});
+		//This is the latest booking in teacher time zone
+		let latest_booking = {{latest_booking|safe}};
+
+		let user_timezone_booking_dict = {{user_timezone_booking_dict|safe}};
+
+		if (Object.keys(latest_booking).length != 0)
+		{
+				let booking_date = user_timezone_booking_dict[latest_booking.id].date;
+				let bookint_time = user_timezone_booking_dict[latest_booking.id].slot.split('-')[0];
+				let b = new Date(booking_date+" "+bookint_time);
+				b = b.toLocaleString('en-US');
+
+				$('.upcoming-date-time-text').text("Booking Time : "+b.split(',')[0].split('-')[0]+" "+b.split(',')[1]);
+				let booking_date_obj = new Date(booking_date+' '+bookint_time);
+
+				let user_time_zone_booking = booking_date_obj.toLocaleString("en-US",{timeZone: user_time_zone});
+                // alert(user_time_zone_booking)
+				// const year = new Date().getFullYear();
+
+				const fourthOfJuly = new Date(user_time_zone_booking).getTime();
+
+
+				// countdown
+				let timer = setInterval(function() {
+
+						// get today's date
+						const today = new Date().getTime();
+
+						// get the difference
+						const diff = fourthOfJuly - today;
+
+						if (diff<300000){
+
+							$('.student-zoom-link').html('{% if latest_booking %}<i class="far fa-dot-circle circle-icon"></i><a href="{{all_teachers[latest_booking['teacher_id']].zoom_link}}" target="_blank" class="student-zoom-link-href">Join Class Meeting</a>{% endif %}')
+						}
+						if (diff<0){
+							$("#timer").html('<h5 style="margin-top: 50%;">CLASS IN PROGRESS. Please join class</h5>')
+							if (diff<-1800000){
+
+								$.ajax({
+									type: 'POST',
+									url: '/studentpanel',
+
+									data: {},
+									success: function(data){
+
+										window.location.href = "studentpanel";
+									}
+
+								});
+
+
+							}
+						}else{
+
+									// math
+									let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+									let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+									let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+									let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+									// display
+									document.getElementById("timer").innerHTML =
+										"<div class=\"days\"> \
+														  <div class=\"numbers\">" + days + "</div>days</div> \
+											<div class=\"hours\"> \
+											  <div class=\"numbers\">" + hours + "</div>hours</div> \
+											<div class=\"minutes\"> \
+											  <div class=\"numbers\">" + minutes + "</div>minutes</div> \
+											<div class=\"seconds\"> \
+											  <div class=\"numbers\">" + seconds + "</div>seconds</div> \
+											</div>";
+						}
+					}, 1000);
+
+					}
+
+
+        //Initial Ratings
+        let ratings = 5;
+        $('.number-rating strong').html('('+ratings+')');
+        //Total stars
+        const starsTotal = 5;
+
+        //run getratings when dom loads
+        document.addEventListener('DOMContentLoaded',getRatings);
+
+        //get ratings
+
+        function getRatings() {
+            const starPercenage=(ratings/starsTotal) * 100;
+
+            //Round to nearest 10
+            const starPercentageRounded = `${(starPercenage/10)*10}%`;
+            //Set width of stars-inner to percentgae
+            document.querySelector(`.star-inner`).style.width = starPercentageRounded;
+
+
+        }
+
+	//code for booking lessons
+
+	$(document).ready(function () {
+
+
+		for (var key in all_course) {
+			// check if the property/key is defined in the object itself, not in parent
+			if (all_course.hasOwnProperty(key)) {
+
+				$('.select-options-course').append('<option value="" id="'+all_course[key].id+'" data-description="Best English Course">'+all_course[key].course_name+'</option>');
+			}
+		};
+
+
+
+		selected_course = 0;
+		selected_lesson = 0;
+		selected_teacher = 0;
+
+		$('#select-course').change(function () {
+            $('.book-lessons-main-container-1').css('height','500px');
+			$(".select-options-lesson").children().not('option:first').remove();
+
+			$('.book-lessons-select-container').removeClass('animate-select-container');
+			$('.show-lesson-boxes-upon-select').removeClass('animate-lesson-boxes-upon-select');
+			document.getElementById('book-lesson-heading').innerText = "Select Lessons Now";
+			$('.book-lessons-select-container').addClass('animate-select-container');
+			$('.show-boxes-upon-select').addClass('animate-boxes-upon-select');
+			$('.show-course-boxes-upon-select').addClass('animate-course-box-upon-select');
+			let course_id = $(this).children("option:selected").attr('id');
+			selected_course = all_course[course_id];
+			for (var key in selected_course.lessons) {
+				// check if the property/key is defined in the object itself, not in parent
+
+				if (selected_course.lessons.hasOwnProperty(key)) {
+					$('.select-options-lesson').append('<option value="" id="'+selected_course.lessons[key].id+'" data-description="Best English Course">'+selected_course.lessons[key].lesson_name+'</option>');
+				}
+			};
+
+			$(".show-course-boxes-upon-select").find('strong').html(selected_course.course_name);
+
+			let img_string = "{{url_for('static',filename='data/courses/course_code/course_image')}}".replace('course_code',selected_course.course_code);
+
+			img_string = img_string.replace('course_image',selected_course.course_image);
+
+			$(".show-course-boxes-upon-select").find('img').attr('src',img_string);
+
+
+		});
+
+		$('#select-lessons').change(function () {
+
+			if (selected_course===0){
+				alert("Please choose a course first!")
+			}
+			else{
+				$(".select-options-teacher").children().not('option:first').remove();
+				$('.show-teacher-boxes-upon-select').removeClass('animate-teacher-boxes-upon-select')
+				document.getElementById('book-lesson-heading').innerText = "Select Teacher Now";
+				$('.book-lessons-select-container').addClass('animate-select-container');
+				$('.show-boxes-upon-select').addClass('animate-boxes-upon-select');
+				$('.show-lesson-boxes-upon-select').addClass('animate-lesson-boxes-upon-select');
+				let lesson_id = $(this).children("option:selected").attr('id');
+				selected_lesson = all_lessons[lesson_id];
+				for (var key in all_teachers) {
+					// check if the property/key is defined in the object itself, not in parent
+					if (all_teachers.hasOwnProperty(key)) {
+
+						$('.select-options-teacher').append('<option value="" id="'+all_teachers[key].id+'" data-description="Best English Course">'+all_teachers[key].first_name+' '+all_teachers[key].last_name+'</option>');
+					}
+				};
+
+				$(".show-lesson-boxes-upon-select").find('strong').html(selected_lesson.lesson_name);
+
+				let img_string = "{{url_for('static',filename='data/courses/course_code/lesson_code/lesson_image')}}".replace('course_code',selected_course.course_code);
+
+				img_string = img_string.replace('lesson_code',selected_lesson.lesson_code);
+				img_string = img_string.replace('lesson_image',selected_lesson.lesson_image);
+
+				$(".show-lesson-boxes-upon-select").find('img').attr('src',img_string);
+			}
+		});
+
+		$('#select-teachers').change(function () {
+			if (selected_lesson===0){
+				alert("Please choose a lesson first!")
+			}
+			else {
+				new_date_set = [];
+				new_date_set_assembled = [];
+				$(".booking-student-date").html('');
+				$(".booking-student-time-slot").html('');
+				$('.selected-everything-booking-button').css('display', 'none');
+				document.getElementById('book-lesson-heading').innerText = "Select Time Slot For your Course";
+				$('.book-lessons-select-container').addClass('animate-select-container');
+				$('.show-boxes-upon-select').addClass('animate-boxes-upon-select');
+				$('.show-teacher-boxes-upon-select').addClass('animate-teacher-boxes-upon-select');
+				let teacher_id = $(this).children("option:selected").attr('id');
+				selected_teacher = all_teachers[teacher_id];
+				$(".show-teacher-boxes-upon-select").find('strong').html(selected_teacher.first_name + ' ' + selected_teacher.last_name);
+
+				let img_string = "{{url_for('static',filename='data/teachers/first_name_email/teacher_image')}}".replace('first_name', selected_teacher.first_name);
+
+
+				img_string = img_string.replace('email', selected_teacher.email);
+				img_string = img_string.replace('teacher_image', selected_teacher.image_file);
+
+				$(".show-teacher-boxes-upon-select").find('img').attr('src', img_string);
+
+				$(".main-calendar-container").css('display', 'block');
+				current_date_index = 0;
+
+				teacher_dates_list = all_teacher_dates[selected_teacher.id];
+
+				new_date_set = convert_dates_to_user_timezone(teacher_dates_list, user_time_zone);
+
+				// console.log("Convert Dates To User Time Zone : ",new_date_set);
+
+				if (Object.keys(new_date_set).length === 0) {
+					// alert("empty!!!!");
+					$('#calendar-days-column-heading-1').html('');
+					$('#calendar-days-column-heading-2').html('');
+					$('#calendar-days-column-heading-3').html('');
+					$('#calendar-days-column-heading-4').html('');
+					$('#calendar-days-column-heading-5').html('');
+					$('#calendar-days-column-heading-6').html('');
+					$('#calendar-days-column-heading-7').html('');
+					$('.calendar-container-main-body-center-section-day-1').children().not(':first-child').remove();
+					$('.calendar-container-main-body-center-section-day-2').children().not(':first-child').remove();
+					$('.calendar-container-main-body-center-section-day-3').children().not(':first-child').remove();
+					$('.calendar-container-main-body-center-section-day-4').children().not(':first-child').remove();
+					$('.calendar-container-main-body-center-section-day-5').children().not(':first-child').remove();
+					$('.calendar-container-main-body-center-section-day-6').children().not(':first-child').remove();
+					$('.calendar-container-main-body-center-section-day-7').children().not(':first-child').remove();
+
+				} else {
+					new_date_set_assembled = make_a_list_of_list_of_dates(new_date_set);
+
+					print_dates_on_calendar(new_date_set_assembled[0]);
+				}
+				;
+
+
+			}
+
+		});
+
+		$('.book-lesson-reset-button').click(function () {
+		    $('.book-lessons-main-container-1').css('height','auto');
+			document.getElementById('book-lesson-heading').innerText = "Select Course, Lesson & Teacher Below";
+			$('.book-lessons-select-container').removeClass('animate-select-container');
+			$('.show-boxes-upon-select').removeClass('animate-boxes-upon-select');
+			$('.show-course-boxes-upon-select').removeClass('animate-course-box-upon-select');
+			$('.show-lesson-boxes-upon-select').removeClass('animate-lesson-boxes-upon-select');
+			$('.show-teacher-boxes-upon-select').removeClass('animate-teacher-boxes-upon-select');
+
+			$("#select-course").val('0');
+			$("#select-lessons").val('0');
+			$("#select-teachers").val('0');
+			$(".booking-student-date").html('');
+			$(".booking-student-time-slot").html('');
+			$('.selected-everything-booking-button').css('display','none');
+			selected_slot = 0;
+			selected_lesson = 0;
+			selected_teacher = 0;
+			selected_course = 0;
+
+			$(".main-calendar-container").css('display','none');
+		});
+	});
+
+
+//code for booking lessons END
+//Script for calendar in booking
+
+$('#expand-button').click( function () {
+    if ($('.calendar-container-main-body-center-section').prop('style').height == '100%'){
+           $('.calendar-container-main-body-center-section').css('height','auto');
+           $('.calendar-container-main-body').css('height','auto');
+           $('.calendar-container-main-body-left-section').css('height','421px');
+           $('.calendar-container-main-body-right-section').css('height','421px');
+           $('#expand-button').css('bottom','-2%');
+    } else{
+           $('.calendar-container-main-body-center-section').css('height','100%');
+           $('.calendar-container-main-body').css('height','85%');
+           $('.calendar-container-main-body-left-section').css('height','100%');
+           $('.calendar-container-main-body-right-section').css('height','100%');
+            $('#expand-button').css('bottom','-5%');
+
+    };
+});
+
+
+
+
+
+
+//Gets user timezone and sets it on the calendar
+// const user_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+// // console.log(user_time_zone);
+$('.calendar-container-heading-my-timezone-bottom').html(user_time_zone);
+
+
+$('#calendar-left-button').click(function () {
+    if (current_date_index>0){
+
+        print_dates_on_calendar(new_date_set_assembled[--current_date_index])
+    }
+});
+$('#calendar-right-button').click(function () {
+
+    if (current_date_index<(new_date_set_assembled.length-1)){
+
+        print_dates_on_calendar(new_date_set_assembled[++current_date_index])
+    }
+});
+
+
+
+function print_dates_on_calendar(date_sett){
+    //date_set has 7 or less dates [ [dateid, date, slots], ...]
+    let date_set = date_sett.filter(function(x) {
+                                return x !== undefined;
+                            });
+    month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    day = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+    let starting_month_name = month[new Date(date_set[0][0]).getMonth()];
+    let starting_month_date = new Date(date_set[0][0]).getDate();
+    let ending_month_name = month[new Date(date_set[date_set.length-1][0]).getMonth()];
+    let ending_month_date = new Date(date_set[date_set.length-1][0]).getDate();
+    $('#date-range').html(starting_month_date+' '+starting_month_name +' - '+ending_month_date+' '+ending_month_name);
+	// console.log(date_set)
+    $('#calendar-days-column-heading-1').html('');
+    $('#calendar-days-column-heading-2').html('');
+    $('#calendar-days-column-heading-3').html('');
+    $('#calendar-days-column-heading-4').html('');
+    $('#calendar-days-column-heading-5').html('');
+    $('#calendar-days-column-heading-6').html('');
+    $('#calendar-days-column-heading-7').html('');
+    $('.calendar-container-main-body-center-section-day-1').children().not(':first-child').remove();
+    $('.calendar-container-main-body-center-section-day-2').children().not(':first-child').remove();
+    $('.calendar-container-main-body-center-section-day-3').children().not(':first-child').remove();
+    $('.calendar-container-main-body-center-section-day-4').children().not(':first-child').remove();
+    $('.calendar-container-main-body-center-section-day-5').children().not(':first-child').remove();
+    $('.calendar-container-main-body-center-section-day-6').children().not(':first-child').remove();
+    $('.calendar-container-main-body-center-section-day-7').children().not(':first-child').remove();
+    for (x=0; x<7;x++){
+        let dayy = day[new Date(date_set[x][0]).getDay()];
+        let monthh = month[new Date(date_set[x][0]).getMonth()];
+        let datee = new Date(date_set[x][0]).getDate();
+
+        $('#calendar-days-column-heading-'+(x+1).toString()).html('<h6>'+dayy+' </h6><h6>'+monthh+' </h6><h6>'+datee+' </h6>');
+        for (slot in date_set[x][1]) {
+
+            $('.calendar-container-main-body-center-section-day-' + (x + 1).toString()).append('<button type="button" class="calendar-container-main-body-center-section-slots-days-container" id="'+date_set[x][1][slot][0]+'">'+date_set[x][1][slot][1]+'</button>');
+        };
+    };
+
+}
+
+
+
+function make_a_list_of_list_of_dates(new_date_set){
+    let sorted_date_set = fill_missing_dates(new_date_set);
+    let master_list = [];
+	//To make sure old slots are not shown to students
+	let current_date_time = new Date();
+
+    counter = 0;
+    while (counter<sorted_date_set.length){
+        let child_list = [];
+        while (child_list.length<7){
+            child_list.push(sorted_date_set[counter++]);
+
+        }
+        master_list.push(child_list)
+    }
+
+    return master_list;
+}
+
+function fill_missing_dates(new_date_set) {
+    let new_date_list = [];
+    for(var key in new_date_set){
+        let date_list = [key,new_date_set[key]];
+        new_date_list.push(date_list);
+    }
+    let list_of_dates = [];
+    for (a of new_date_list){
+        list_of_dates.push(new Date(a[0]));
+    }
+    let sorted_list = list_of_dates.sort((a, b) => b-a);
+
+    let final_date_list = [];
+    for (a of sorted_list) {
+        final_date_list.push([a.toLocaleString("en-US").split(',')[0],new_date_set[a.toLocaleString("en-US").split(',')[0]]]);
+
+    }
+    final_date_list = final_date_list.reverse();
+    return final_date_list;
+}
+
+function convert_dates_to_user_timezone(date_set,timezone){
+    let new_date_set = {};
+    // console.log("NEW DATE SET IN CONVERT DATES TO USER TIME ZONE : ",date_set);
+    for (date of date_set){
+        //This checks for no slots
+        if (date[2].length == 0){
+            continue
+        }
+		else{
+
+			let old_date = date[1].replace('-','/');
+			old_date = old_date.replace('-','/');
+			old_date = old_date.split('/');
+			old_date = [old_date[1],old_date[2],old_date[0]];
+			old_date = old_date.join('/');
+
+			if (old_date[0] == '0'){
+				old_date = old_date.slice(1);
+				};
+			// console.log(old_date);
+
+			let slot_set = date[2];
+
+
+			for (slot of slot_set){
+				let slot_id = slot[0];
+				let slot_start = slot[1].split('-')[0];
+
+				let teacher_time_zone = slot[2];
+				// console.log("Before sending to convert date time : ",old_date.split(',')[0],slot_start,timezone,teacher_time_zone);
+				let returned_new_date_list = convert_date_time(old_date.split(',')[0],slot_start,timezone,teacher_time_zone);
+				// console.log("After Recieving from convert date time : ",returned_new_date_list)
+
+				//First check if new date time is older than current time?
+				let current_date_time = new Date();
+				let this_date_time = new Date(returned_new_date_list[0]+" "+returned_new_date_list[1]);
+				if (this_date_time<current_date_time){
+					continue
+				}
+				else{
+					if (returned_new_date_list[0] in new_date_set){
+						new_date_set[returned_new_date_list[0]].push([slot_id,returned_new_date_list[1]+'-'+returned_new_date_list[2],timezone]);
+					}else{
+						new_date_set[returned_new_date_list[0]] = [];
+						new_date_set[returned_new_date_list[0]].push([slot_id,returned_new_date_list[1]+'-'+returned_new_date_list[2],timezone]);
+					}
+				}
+
+			}
+		};
+
+
+    }
+    return new_date_set;
+}
+
+function convert_date_time(date,time,timezone,teacher_time_zone){
+
+    let old_date = new Date(date+" "+time);
+
+    let invaliddate = new Date(old_date.toLocaleString("en-US",{timeZone:teacher_time_zone }));
+
+	let diff = old_date.getTime() - invaliddate.getTime();
+
+    let new_date_obj = new Date(old_date.getTime()+diff);
+	new_date_obj = new_date_obj.toLocaleString("en-US");
+
+
+	let date_obj = new Date(new_date_obj);
+
+	date_obj.setMinutes(date_obj.getMinutes()+30);
+
+	let new_date = new_date_obj.split(',')[0];
+
+	let new_starting_time = new_date_obj.split(',')[1];
+
+    let new_ending_time = date_obj.toLocaleString("en-US").split(',')[1];
+
+    return [new_date,new_starting_time,new_ending_time];
+}
+
+
+
+
+
+$('.calendar-container-main-body-center-section').on("click",'button.calendar-container-main-body-center-section-slots-days-container',function () {
+	let student_id = {{current_user.id|safe}};
+	let student = all_students[student_id];
+	if (student.number_of_lessons_remaining===0){
+		alert("Your account has no lessons remaining. Please recharge your account from payments to book a lesson!");
+	}
+	else{
+		let date_content = $(this).parent().children(':first-child').contents().text();
+		let slot_content = $(this).text();
+		selected_slot = $(this).attr('id');
+		$('.booking-student-date').html(date_content);
+		$('.booking-student-time-slot').html(slot_content);
+		$('.selected-everything-booking-button').css('display','block');
+    }
+});
+
+
+$('.selected-everything-booking-button').click(function () {
+    function ConfirmDialog(message) {
+      $('<div></div>').appendTo('body')
+        .html('<div><h6>' + message + '?</h6></div>')
+        .dialog({
+          modal: true,
+          title: 'Confirm Booking',
+          zIndex: 10000,
+          autoOpen: true,
+          width: '400px',
+          resizable: false,
+          buttons: {
+            Yes: function() {
+              // $(obj).removeAttr('onclick');
+              // $(obj).parents('.Parent').remove();
+
+
+                document.getElementById('book-lesson-heading').innerText = "Select Course, Lesson & Teacher Below";
+                $('.book-lessons-select-container').removeClass('animate-select-container');
+                $('.show-boxes-upon-select').removeClass('animate-boxes-upon-select');
+                $('.show-course-boxes-upon-select').removeClass('animate-course-box-upon-select');
+                $('.show-lesson-boxes-upon-select').removeClass('animate-lesson-boxes-upon-select');
+                $('.show-teacher-boxes-upon-select').removeClass('animate-teacher-boxes-upon-select');
+
+                $("#select-course").val('0');
+                $("#select-lessons").val('0');
+                $("#select-teachers").val('0');
+                $(".booking-student-date").html('');
+                $(".booking-student-time-slot").html('');
+                $('.selected-everything-booking-button').css('display','none');
+
+
+                $(".main-calendar-container").css('display','none');
+                // console.log(selected_course.id);
+                // console.log(selected_lesson.id);
+                // console.log(selected_teacher.id);
+                // console.log(selected_slot);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/student_lesson_booking',
+
+                    data: {
+                        'course_id':selected_course.id,
+                        'lesson_id':selected_lesson.id,
+                        'teacher_id':selected_teacher.id,
+                        'slot_id':selected_slot
+                    },
+                    success: function(data){
+                        if(data['lessons']===0){
+                         alert('Insufficient number of lessons! Please buy lessons!');
+                        }
+                        else if(data['booked']===1){
+                            alert('Slot already booked!')
+                        }
+                        else{
+                            window.location.href = "studentpanel";
+                            selected_slot = null;
+                            selected_lesson = null;
+                            selected_teacher = null;
+                            selected_course = null;
+                        }
+                    }
+
+
+
+                });
+              $(this).dialog("close");
+            },
+            No: function() {
+
+
+              $(this).dialog("close");
+            }
+          },
+          close: function(event, ui) {
+            $(this).remove();
+          }
+        });
+    };
+    ConfirmDialog('Are you sure');
+
+
+});
+
+
+
+//Script for calendar in booking END
+$(document).ready(function() {
+    var dt_complain = $('#student-complain-table').DataTable({bFilter: false, bInfo: false, bLengthChange:false});
+    $('.submit-complain').click(function () {
+       let complain_text = $('#complain-text').val();
+       complain_text = $.trim(complain_text);
+       if (complain_text===''){
+           alert('Please describe your complaint!')
+       }
+       else{
+            $('#complain-text').val('');
+            let booking_id = $('#student-booking-complain-dropdown').val();
+            let student_id = {{current_user.id|safe}};
+            console.log(student_id);
+            let option_text = $('#student-booking-complain-dropdown option:selected').text();
+            let splitted_option_text = option_text.split('-');
+            $('#student-booking-complain-dropdown').val(0);
+
+            $.ajax({
+                    type: 'POST',
+                    url: '/studentpanel_complain',
+
+                    data: {'booking_id':booking_id,'complain_text':complain_text,'student_id':student_id},
+                    success: function(data){
+                        console.log(data);
+                        let complain_id = data['complain_id'];
+                        if (booking_id===null){
+                            dt_complain.row.add([complain_id,'None','None','None','None','None','None',complain_text,'<i class="far fa-times-circle" style="color: red;"></i>']).draw(false);
+
+                        }
+
+                        else{
+                            $('#complain-table-body').append('<td>'+complain_id+'</td>'+'<td>'+booking_id+'</td>\n' +'<td>'+splitted_option_text[0]+'</td>\n' +'<td>'+splitted_option_text[1]+'</td>\n' +'<td>'+splitted_option_text[2]+'</td>\n' +'<td>'+splitted_option_text[3]+'</td>\n' +'<td>'+splitted_option_text[4]+'</td>\n' +'<td>'+complain_text+'</td>\n' +'<td><i class="far fa-times-circle" style="color: red;"></i></td><td></td>\n')}
+                        }
+                });
+
+       };
+});
+});
+
+
+$('.select-number-of-lessons').keyup(function () {
+    $('.paypal-div').fadeOut(500);
+    $('.paypal-div').empty();
+	let numlessons = $(this).val();
+	if ($.isNumeric(numlessons)===true){
+	let calculated_fee = $(this).val()*3;
+	$('.calculated-amount-text').val(calculated_fee);
+
+	}else{
+		console.log(numlessons);
+		if (numlessons===''){
+			$('.calculated-amount-text').val('');
+		}
+		else{
+		alert("Please enter numbers of lessons in numeric!")
+		}
+	}
+});
+$('#student-book-lesson-content').on('click','button.button-payment-no-lessons',function () {
+    $('.nav-pills a[href="#student-payment-content"]').tab('show');
+});
+$(document).ready(function() {
+    $('#all-lessons-table').DataTable({bFilter: false, bInfo: false, bLengthChange:false});
+    $('#all--succesful-lessons-table').DataTable({bFilter: false, bInfo: false, bLengthChange:false});
+    $('#all-missed-lessons-table').DataTable({bFilter: false, bInfo: false, bLengthChange:false});
+    $('#all-courses-table').DataTable({bFilter: false, bInfo: false, bLengthChange:false,stripeClasses:[]});
+
+});
+
+$('.student-settings-save-button').click(function (e) {
+    let newp = $('#student-settings-curr-password-input').val();
+    let cnfp = $('#student-settings-new-password-input').val();
+    if ((newp.length<8) && (newp!=='')){
+        alert('Password must be of atleast 8 characters!');
+        e.preventDefault();
+    }else if (newp!==cnfp){
+        alert('Passwords must match!');
+        e.preventDefault();
+    }else{
+    };
+
+})
+
+
+
+ </script>
+
+</body>
+
+
+</html>

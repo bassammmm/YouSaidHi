@@ -1,0 +1,941 @@
+{% extends "layout.html" %}
+
+{% block style_content %}
+<link rel="stylesheet" href="{{url_for('static',filename='teacher-admin.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+<title>yousaidhi - Admin Panel</title>
+<link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.png')}}" type ="image/x-icon">
+{% endblock style_content %}
+{% block body_content %}
+<div class="row">
+    <div class="teacher-admin-nav-column">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div class="teacher-admin-nav-heading">
+                <h1>Teacher Panel</h1>
+            </div>
+          <a class="nav-link active" style="text-align: left; " id="v-pills-view-teachers-tab" data-toggle="pill" href="#v-pills-view-teachers" role="tab" aria-controls="v-pills-view-teachers" aria-selected="true">View Teachers</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-add-teacher-tab" data-toggle="pill" href="#v-pills-add-teacher" role="tab" aria-controls="v-pills-add-teacher" aria-selected="false">Add Teacher</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-view-courses-tab" data-toggle="pill" href="#v-pills-view-courses" role="tab" aria-controls="v-pills-view-courses" aria-selected="false">View Courses</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-add-course-tab" data-toggle="pill" href="#v-pills-add-course" role="tab" aria-controls="v-pills-add-course" aria-selected="false">Add Course</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-view-lessons-tab" data-toggle="pill" href="#v-pills-view-lessons" role="tab" aria-controls="v-pills-view-lessons" aria-selected="false">View Lessons</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-add-lessons-tab" data-toggle="pill" href="#v-pills-add-lessons" role="tab" aria-controls="v-pills-add-lessons" aria-selected="false">Add Lessons</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-students-info-tab" data-toggle="pill" href="#v-pills-students-info" role="tab" aria-controls="v-pills-students-info" aria-selected="false">Students Information</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-students-complain-tab" data-toggle="pill" href="#v-pills-students-complain" role="tab" aria-controls="v-pills-students-complain" aria-selected="false">Students Complains</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-teacher-salary-tab" data-toggle="pill" href="#v-pills-teacher-salary" role="tab" aria-controls="v-pills-teacher-salary" aria-selected="false">Teacher Salary</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-add-videos-tab" data-toggle="pill" href="#v-pills-add-videos" role="tab" aria-controls="v-pills-add-videos" aria-selected="false">Add Videos</a>
+          <a class="nav-link" style="text-align: left" id="v-pills-student-payments-tab" data-toggle="pill" href="#v-pills-student-payments" role="tab" aria-controls="v-pills-student-payments" aria-selected="false">Student Payments</a>
+        </div>
+    </div>
+    <div class="teacher-admin-nav-content">
+        <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-pane fade show active view-teachers-tab-css" id="v-pills-view-teachers" role="tabpanel" aria-labelledby="v-pills-view-teachers-tab">
+              <div class="view-teachers-header"><h1>View Teachers</h1></div>
+              <div class="view-teachers-wrapper">
+                  {% with messages = get_flashed_messages(with_categories=true)%}
+                            {% if messages %}
+                                {% for category,message in messages %}
+                                    <div class="alert alert-{{ category }}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                  <table id="teacher-table" class="table table-striped table-bordered teachers-view-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Ratings</th>
+                                <th>Lessons</th>
+                                <th>Zoom Link</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for teacher in teachers%}
+                                <tr>
+
+                                    <td>{{teacher.id}}</td>
+                                    <td>{{teacher.first_name}}</td>
+                                    <td>{{teacher.last_name}}</td>
+                                    <td>{{teacher.email}}</td>
+                                    <td>{{teacher.ratings}}</td>
+                                    <td>{{teacher.completed_lessons}}</td>
+                                    <td>{{teacher.zoom_link}}</td>
+                                    <td><button class="btn btn-secondary delete-teacher-button" id="{{teacher.id}}">Delete Teacher</button></td>
+                                </tr>
+
+                            {% endfor %}
+                        </tbody>
+                  </table>
+              </div>
+
+
+          </div>
+          <div class="tab-pane fade" id="v-pills-add-teacher" role="tabpanel" aria-labelledby="v-pills-add-teacher-tab">
+                <div class="add-teacher-header"><h1>Add Teacher</h1></div>
+              <div class="container add-teacher-wrapper">
+                <form method="POST" action="{{url_for('register_teacher_admin_panel')}}" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4"><strong>Register Teacher</strong></legend>
+                        <div class="form-group">
+                            {{ form.first_name.label(class="form-control-label") }}
+
+                            {% if form.first_name.errors %}
+                                {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.first_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.first_name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.last_name.label(class="form-control-label") }}
+
+                            {% if form.last_name.errors %}
+                                {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.last_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.last_name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.email.label(class="form-control-label") }}
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors%}
+                                        <span> {{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.password.label(class="form-control-label") }}
+                            {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors%}
+                                        <span> {{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.confirm_password.label(class="form-control-label") }}
+                            {% if form.confirm_password.errors %}
+                                {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.confirm_password.errors%}
+                                        <span> {{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.confirm_password(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.teacher_image.label() }}
+                            {{ form.teacher_image(class="form-control-file") }}
+                            {% if form.teacher_image.errors %}
+                                {% for error in form.teacher_image.errors%}
+                                    <span class="text-danger"> {{ error }}</span></br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.zoom_link.label(class="form-control-label") }}
+
+                            {% if form.zoom_link.errors %}
+                                {{ form.zoom_link(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.zoom_link.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.zoom_link(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+
+            </form>
+              </div>
+
+          </div>
+          <div class="tab-pane fade view-courses-tab-css" id="v-pills-view-courses" role="tabpanel" aria-labelledby="v-pills-view-courses-tab">
+              <div class="view-courses-header"><h1>View Courses</h1></div>
+              <div class="view-courses-wrapper">
+                    <table id="course-table" class="table table-striped table-bordered teachers-view-table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Course Lessons</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses%}
+                            <tr>
+
+                                <td>{{course.id}}</td>
+                                <td>{{course.course_code}}</td>
+                                <td>{{course.course_name}}</td>
+                                <td>{{course.lessons|length}}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+              </table>
+                </div>
+          </div>
+          <div class="tab-pane fade" id="v-pills-add-course" role="tabpanel" aria-labelledby="v-pills-add-course-tab">
+              <div class="add-course-header"><h1>Add Course</h1></div>
+                <div class="container add-course-wrapper">
+                    <form method="POST" action="{{url_for('register_course_teacher_admin_panel')}}"  enctype="multipart/form-data">
+                    {{ form2.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4"><strong>Register Course</strong></legend>
+                        <div class="form-group">
+                            {{ form2.course_name.label(class="form-control-label") }}
+
+                            {% if form2.course_name.errors %}
+                                {{ form2.course_name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.course_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.course_name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.course_code.label(class="form-control-label") }}
+
+                            {% if form2.course_code.errors %}
+                                {{ form2.course_code(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.course_code.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.course_code(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form2.course_description.label(class="form-control-label") }}
+                            {% if form2.course_description.errors %}
+                                {{ form2.course_description(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.course_description.errors%}
+                                        <span> {{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.course_description(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form2.course_image.label() }}
+                            {{ form2.course_image(class="form-control-file") }}
+                            {% if form2.course_image.errors %}
+                                {% for error in form2.course_image.errors%}
+                                    <span class="text-danger"> {{ error }}</span></br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+
+
+
+                    </fieldset>
+
+                    <div class="form-group">
+                        {{ form2.submit(class="btn btn-outline-info") }}
+                    </div>
+
+            </form>
+
+
+
+
+                </div>
+
+
+          </div>
+          <div class="tab-pane fade" id="v-pills-view-lessons" role="tabpanel" aria-labelledby="v-pills-view-lessons-tab">
+              <div class="view-lessons-header"><h1>View Lessons</h1></div>
+                <div class="container course-lesson-container">
+                    <ul style="list-style-type: none;">
+                    {% for course in courses %}
+                        <li>
+                            <h2 class="course-lesson-heading">{{course.course_name}}</h2>
+                            {% for lesson in course.lessons %}
+                                <button type='button' class="collapsible course-lesson-buttons">
+                                      {{lesson.lesson_name}} {{loop.index}}
+                                  </button>
+                                <div class="content lesson-content-collapsibble" id="collapsible-content">
+                                        <h4>Documents List</h4>
+                                        <hr>
+                                        <ul>
+                                            {% for document in lesson.lesson_documents %}
+                                                <li>{{document.document}}</li>
+                                            {% endfor %}
+                                        </ul>
+
+                                </div>
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>
+          </div>
+
+          <div class="tab-pane fade" id="v-pills-add-lessons" role="tabpanel" aria-labelledby="v-pills-add-lessons-tab">
+            <div class="add-lessons-header"><h1>Add Lessons</h1></div>
+              <div class="container add-lessons-wrapper">
+                <form method="POST" action="{{url_for('register_lesson_teacher_admin_panel')}}" enctype="multipart/form-data" id="lessonform">
+                {{ form3.hidden_tag() }}
+                        <fieldset class="form-group" id="lessonfieldset">
+                            <legend class="border-bottom mb-4"><strong>Add Lesson</strong></legend>
+                            <div class="form-group">
+
+                                    {% if form3.course_id.errors %}
+                                        {{ form3.course_id(class="form-control is-invalid",rows=nl, multiple=False,placeholder="Select Course") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form3.course_id.errors%}
+                                                <span> {{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form3.course_id(class="form-control",rows=nl, multiple=False,placeholder="Select Course") }}
+                                    {% endif %}
+                            </div>
+                            <div class="form-group">
+                                    {{ form3.lesson_name.label(class="form-control-label") }}
+
+                                    {% if form3.lesson_name.errors %}
+                                        {{ form3.lesson_name(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form3.lesson_name.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form3.lesson_name(class="form-control form-control-lg") }}
+                                    {% endif %}
+
+                                </div>
+                            <div class="form-group">
+                                    {{ form3.lesson_code.label(class="form-control-label") }}
+
+                                    {% if form3.lesson_code.errors %}
+                                        {{ form3.lesson_code(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form3.lesson_code.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form3.lesson_code(class="form-control form-control-lg") }}
+                                    {% endif %}
+
+                                </div>
+                            <div class="form-group">
+                                    {{ form3.lesson_homework.label(class="form-control-label") }}
+
+                                    {% if form3.lesson_homework.errors %}
+                                        {{ form3.lesson_homework(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form3.lesson_homework.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form3.lesson_homework(class="form-control form-control-lg") }}
+                                    {% endif %}
+
+                                </div>
+                            <div class="form-group">
+                                        {{ form3.lesson_image.label() }}
+                                        {{ form3.lesson_image(class="form-control-file") }}
+                                        {% if form3.lesson_image.errors %}
+                                            {% for error in form3.lesson_image.errors%}
+                                                <span class="text-danger"> {{ error }}</span></br>
+                                            {% endfor %}
+                                        {% endif %}
+                            </div>
+
+
+                                        {{ form3.lesson_documents() }}
+
+
+
+                        </fieldset>
+                        <div class="add-lesson-buttonss">
+
+                            <div class="form-group add-lesson-button-2" id="submitbutton">
+                                {{ form3.submit(class="btn btn-outline-info") }}
+                            </div>
+
+                            <div class="add-lesson-button-1">
+                                <input type="button" value="Add Extra Document" class="add btn btn-outline-info" id="addlesson"/>
+                            </div>
+                        </div>
+            </form>
+            </div>
+          </div>
+
+            <div class="tab-pane fade" id="v-pills-students-info" role="tabpanel" aria-labelledby="v-pills-students-info-tab">
+
+                <div class="students-info-header"><h1>Student Information</h1></div>
+                <div class="choose-student-row">
+                    <div class="choose-student-container">
+                        <select name="options" class="form-control select-options-student student-options" id="select-student">
+                                <option selected value="0"> -- Select student -- </option>
+                        </select>
+                    </div>
+                    <div class="student-information">
+                        <div class="profile-wrapper-div">
+                            <div class="student-profile-big-image"></div>
+                            <div class="student-details-box">
+
+                            </div>
+                        </div>
+                        <div class="student-edit-details" style="display: none" id="">
+                            <div class="student-lessons-edit-number-label">
+                                <strong>Edit Lessons</strong>
+                            </div>
+                            <input type="text" style="padding: 10px" placeholder="New Number Of Lessons" class="student-lessons-edit-number-text">
+                            <button class="btn btn-secondary student-edit-details-save-button">Save Changes</button>
+                        </div>
+                    </div>
+                     <table id="student-booking-table" class="table table-striped table-bordered teachers-view-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Course</th>
+                                <th>Lesson</th>
+                                <th>Date</th>
+                                <th>Slot</th>
+                                <th>Lecture Taken</th>
+                                <th>Teacher Present</th>
+                                <th>Student Present</th>
+                                <th>Teacher Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table-body">
+
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+            <div class="tab-pane fade" id="v-pills-students-complain" role="tabpanel" aria-labelledby="v-pills-students-complain-tab">
+
+                <div class="student-complain-header">
+                    <h1>Students Complains</h1>
+                </div>
+
+                <div class="student-complain-wrapper">
+
+                    <table id="student-complain-table" class="table table-striped table-bordered student-complain-table" style="width:100%">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Complain ID</th>
+                                                <th>Student Name</th>
+                                                <th>Student Email</th>
+                                                <th>Booking ID</th>
+                                                <th>Course Name</th>
+                                                <th>Lesson Name</th>
+                                                <th>Teacher Name</th>
+                                                <th>Date</th>
+                                                <th>Slot</th>
+                                                <th>Complain</th>
+                                                <th>Resolved</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="complain-table-body">
+
+                                                {%for complain in complains%}
+                                                    <tr>
+                                                        <td>{{complain.id}}</td>
+                                                        <td>{{all_students[complain.student_id].first_name}}</td>
+                                                        <td>{{all_students[complain.student_id].email}}</td>
+                                                        {%if complain.booking_id%}
+                                                            <td>{{complain.booking_id}}</td>
+                                                            <td>{{all_course[all_lessons[all_bookings[complain.booking_id].lesson_id].course_id].course_name}}</td>
+                                                            <td>{{all_lessons[all_bookings[complain.booking_id].lesson_id].lesson_name}}</td>
+                                                            <td>{{all_teachers[all_bookings[complain.booking_id].teacher_id].first_name}}</td>
+                                                            <td>{{all_dates[all_bookings[complain.booking_id].date_id].date}}</td>
+                                                            <td>{{all_slots[all_bookings[complain.booking_id].slot_id].slot}}</td>
+                                                            <td>{{complain.complain}}</td>
+                                                            {%if complain.resolved%}
+                                                                <td><i class="fas fa-check-circle" style="color: green;"></i></td>
+                                                            {%else%}
+                                                                <td><button type="button" class="issue-resolved" id="{{complain.id}}">Resolve Issue</button></td>
+                                                            {%endif%}
+                                                        {%else%}
+                                                            <td>None</td>
+                                                            <td>None</td>
+                                                            <td>None</td>
+                                                            <td>None</td>
+                                                            <td>None</td>
+                                                            <td>None</td>
+                                                            <td>{{complain.complain}}</td>
+                                                            {%if complain.resolved%}
+                                                                <td><i class="fas fa-check-circle" style="color: green;"></i></td>
+                                                            {%else%}
+                                                               <td> <button type="button" class="issue-resolved" id="{{complain.id}}">Resolve Issue</button></td>
+                                                            {%endif%}
+                                                        {%endif%}
+                                                    </tr>
+                                                {%endfor%}
+
+
+
+                                        </tbody>
+                                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="v-pills-teacher-salary" role="tabpanel" aria-labelledby="v-pills-teacher-salary-tab">
+                <div class="teacher-salary-header"><h1>Teacher Salary</h1></div>
+                <div class="teacher-salary-wrapper">
+                    <div class="color-codes">
+                            <div class="successful-lectures boxess"><span><h5>Successful</h5><div class="color-box color-box-green"></div></span></div>
+                            <div class="teacher-absent boxess"><span><h5>Teacher Absent</h5><div class="color-box color-box-red"></div></div>
+                            <div class="student-absent boxess"><span><h5>Student Absent</h5><div class="color-box color-box-yellow"></div></div>
+                            <div class="both-absent boxess"><span><h5>Both Absent</h5><div class="color-box color-box-orange"></div></div>
+                            <div class="future-class boxess"><span><h5>Future Classes</h5><div class="color-box color-box-blue"></div></div>
+                        </div>
+                        <select name="" id="teacher-salary-select">
+                            <option selected value="0">-- Select Teacher --</option>
+                            {%for m in teachers%}
+                                    <option value="{{m.id}}">{{m.first_name}} {{m.last_name}}</option>
+                            {%endfor%}
+                        </select>
+                        {%for m,n in all_teachers_salary.items()%}
+                                {%for x in teachers%}
+                                    {%if x.id==m%}
+                                        <div class="account-details-container" id="accdetails-{{m}}" style="display: none">
+                                            <span><strong>Bank Account Title:</strong> <p style="margin-left: 5em"> {{x.account_title}}</p></span>
+                                            <br>
+                                            <span><strong>Bank Account Number: </strong><p style="margin-left: 3.1em"> {{x.account_number}}</p></span><br>
+                                            <span><strong>Bank Name:  </strong>         <p style="margin-left: 8.2em">   {{x.account_bank}}</p></span><br>
+                                            <span><strong>Mobile Number:</strong>       <p style="margin-left: 6.1em"> {{x.mobile_number}}</p></span><br>
+                                        </div>
+                                    {%endif%}
+                                {%endfor%}
+
+                            <div class="container summary-container" id="salary-{{m}}" style="display: none;">
+
+                                <ul style="list-style-type: none;">
+                                    {% for k,v in n.items() %}
+                                        <li>
+                                            <h2 class="summary-heading">{{k}}</h2>
+                                            {% for a,b in v.items() %}
+                                                <button type='button' class="collapsible salary-colapsible-button">
+                                                      <div class="summary-monthly-heading">
+                                                          <h4 class="summary-monthly-month">{{a}}</h4>
+
+                                                          <h4 class="summary-monthly-salary-heading">Salary : Rs.</h4>
+                                                          <h5 class="summary-monthly-pay" id="salarytext-{{b[1].id}}">{{b[1].salary}}</h5>
+
+                                                      </div>
+                                                  </button>
+                                                <div class="content" id="collapsible-content">
+                                                        <h4>Booking List</h4>
+                                                        <hr>
+                                                    <div class="table-container">
+                                                        <table id="summary-table" class="table table-striped table-bordered summary-table" style="width:100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Booking ID</th>
+                                                                    <th>Course Name</th>
+                                                                    <th>Lesson Name</th>
+                                                                    <th>Teacher Name</th>
+                                                                    <th>Date</th>
+                                                                    <th>Slot</th>
+                                                                    <th>Lecture Complete</th>
+                                                                    <th>Teacher Present</th>
+                                                                    <th>Student Present</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="complain-table-body">
+
+                                                                    {%for booking in b[0]%}
+                                                                            {%if booking.lecture_complete and booking.teacher_present and booking.student_present%}
+                                                                            <tr style="background-color: mediumseagreen">
+                                                                            {%elif booking.lecture_complete and booking.teacher_present%}
+                                                                            <tr style="background-color: yellow">
+
+                                                                            {%elif booking.lecture_complete and booking.student_present%}
+                                                                            <tr style="background-color: indianred">
+
+                                                                            {%elif booking.lecture_complete%}
+                                                                            <tr style="background-color: orange">
+
+                                                                            {%else%}
+                                                                            <tr style="background-color: dodgerblue">
+
+                                                                            {%endif%}
+
+
+                                                                                <td>{{booking.id}}</td>
+                                                                                <td>{{booking.lesson.course.course_name}}</td>
+                                                                                <td>{{booking.lesson.lesson_name}}</td>
+                                                                                <td>{{booking.teacher.first_name}}</td>
+                                                                                <td>{{booking.date.date}}</td>
+                                                                                <td>{{booking.slot.slot}}</td>
+                                                                                <td>{{booking.lecture_complete}}</td>
+                                                                                <td>{{booking.teacher_present}}</td>
+                                                                                <td>{{booking.student_present}}</td>
+                                                                            </tr>
+                                                                    {%endfor%}
+
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <input class="salary-text-{{b[1].id}} salary-text" type="text"/>
+                                                    <button type="button" class="btn btn-secondary update-salary" id="{{b[1].id}}">Update Salary</button>
+                                                </div>
+                                            {% endfor %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                </div>
+                        {%endfor%}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-add-videos" role="tabpanel" aria-labelledby="v-pills-add-videos-tab">
+                        <div class="add-course-header"><h1>Add Video</h1></div>
+                                <div class="container add-course-wrapper">
+                                    <form method="POST" action="{{url_for('add_video_teacher_admin_panel')}}"  enctype="multipart/form-data">
+                                    {{ form4.hidden_tag() }}
+                                    <fieldset class="form-group">
+                                        <legend class="border-bottom mb-4"><strong>Add Video</strong></legend>
+                                        <div class="form-group">
+                                            {{ form4.video_name.label(class="form-control-label") }}
+
+                                            {% if form4.video_name.errors %}
+                                                {{ form4.video_name(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form4.video_name.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form4.video_name(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form4.video_link.label(class="form-control-label") }}
+
+                                            {% if form4.video_link.errors %}
+                                                {{ form4.video_link(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form4.video_link.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form4.video_link(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            {{ form4.video_image.label() }}
+                                            {{ form4.video_image(class="form-control-file") }}
+                                            {% if form4.video_image.errors %}
+                                                {% for error in form4.video_image.errors%}
+                                                    <span class="text-danger"> {{ error }}</span></br>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+
+
+
+
+                                    </fieldset>
+
+                                    <div class="form-group">
+                                        {{ form4.submit(class="btn btn-outline-info") }}
+                                    </div>
+
+                            </form>
+
+
+
+
+                </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="v-pills-student-payments" role="tabpanel" aria-labelledby="v-pills-student-payments-tab">
+                                        <div class="student-complain-header">
+                    <h1>Students Payments</h1>
+                </div>
+
+                <div class="student-complain-wrapper">
+
+                    <table id="student-payment-table" class="table table-striped table-bordered student-payment-table" style="width:100%">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Payment Id</th>
+                                                <th>Student Name</th>
+                                                <th>Student Email</th>
+                                                <th>Lessons</th>
+                                                <th>Price</th>
+                                                <th>Date</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="payment-table-body">
+
+                                                {%for payment in student_payments%}
+                                                    <tr>
+                                                        <td>{{payment.id}}</td>
+                                                        <td>{{all_students[payment.student_id].first_name}} {{all_students[payment.student_id].last_name}}</td>
+                                                        <td>{{all_students[payment.student_id].email}}</td>
+                                                        <td>{{payment.number_of_lessons}}</td>
+                                                        <td>{{payment.price}}</td>
+                                                        <td>{{payment.date}}</td>
+                                                    </tr>
+                                                {%endfor%}
+
+
+
+                                        </tbody>
+                                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body_content %}
+
+
+
+
+
+
+
+
+
+
+
+{% block scripts_content %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    const all_bookings = {{all_bookings|safe}};
+	const all_slots = {{all_slots|safe}};
+	const all_teachers = {{all_teachers|safe}};
+	const all_course = {{all_course|safe}};
+	const all_lessons = {{all_lessons|safe}};
+	const all_dates = {{all_dates|safe}};
+	const all_students = {{all_students|safe}};
+    $(document).ready(function () {
+        selected_student = null;
+        for (var key in all_students) {
+            console.log("yeah");
+                // check if the property/key is defined in the object itself, not in parent
+                if (all_students.hasOwnProperty(key)) {
+
+                    $('.select-options-student').append('<option value="" id="'+all_students[key].id+'" data-description="Student">'+all_students[key].first_name+' '+all_students[key].last_name+'</option>');
+                }
+            };
+        $('#select-student').change(function () {
+            $('.student-edit-details').css('display','none');
+            $('.student-edit-details').css('display','block');
+
+
+            $('#student-table-body').empty();
+            $('.student-profile-big-image').empty();
+            $('.student-details-box').empty();
+            let student_id = $(this).children("option:selected").attr('id');
+            let student = all_students[student_id]
+            let student_bookings = student.bookings;
+            $('.student-edit-details').attr('id',student_id);
+            for (bookings of student_bookings){
+                $('#student-table-body').append('<tr><td>'+bookings.id+'</td><td>'+all_course[all_lessons[bookings.lesson_id].course_id].course_name+'</td><td>'+all_lessons[bookings.lesson_id].lesson_name+'</td><td>'+all_dates[bookings.date_id].date+'</td><td>'+all_slots[bookings.slot_id].slot+'</td><td>'+bookings.lecture_complete+'</td><td>'+bookings.teacher_present+'</td><td>'+bookings.student_present+'</td><td>'+all_teachers[bookings.teacher_id].first_name+' '+all_teachers[bookings.teacher_id].last_name+'</td></tr>')
+            }
+            let img_string = "{{url_for('static',filename='data/students/first_name_email/teacher_image')}}".replace('first_name', student.first_name);
+            img_string = img_string.replace('email', student.email);
+            img_string = img_string.replace('teacher_image', student.image_file);
+            $('.student-profile-big-image').append('<img src="'+img_string+'" alt="student-img" class="avatar student-profile-img">')
+            $('.student-details-box').append('<ul><li><div class="student-detail-list-item-heading">Student ID        :</div><div class="student-detail-list-item-value">'+student.id+'</div></li>\<li><div class="student-detail-list-item-heading">Name              : </div></div><div class="student-detail-list-item-value">'+student.first_name+' '+student.last_name+'</div></li><li><div class="student-detail-list-item-heading">Email             : </div></div><div class="student-detail-list-item-value">'+student.email+'</div></li><li><div class="student-detail-list-item-heading">Total Bookings    : </div></div><div class="student-detail-list-item-value">'+student_bookings.length+'</div></li><li class="remaining-lessons-student"><div class="student-detail-list-item-heading">Remaining Lessons : </div></div><div class="student-detail-list-item-value">'+student.number_of_lessons_remaining+'</div></li><li><div class="student-detail-list-item-heading">Package           : </div></div><div class="student-detail-list-item-value">'+student.package+'</div></li></ul>')
+        });
+    });
+
+    $('.student-edit-details-save-button').click(function () {
+       let student_id = $(this).parent().attr('id');
+       let new_num_lessons = $(this).parent().children('.student-lessons-edit-number-text').val();
+        $.ajax({
+				type: 'POST',
+				url: '/teacheradminpanel_edit_student_lessons',
+
+				data: {'student_id':student_id,'new_num_lessons':new_num_lessons},
+				success: function(data){
+				    $('.remaining-lessons-student').children('.student-detail-list-item-value').text(new_num_lessons)
+				}
+
+			});
+    });
+
+
+    $(document).ready(function() {
+        $('#teacher-table').DataTable();
+        $('#course-table').DataTable();
+
+
+        $('#lesson_documents').find('li').find('label:first').html(' ');
+    } );
+
+    $('.delete-teacher-button').click(function () {
+       let teacher_id = $(this).attr('id');
+
+       $.ajax({
+				type: 'POST',
+				url: '/teacheradminpanel_delete_teacher',
+
+				data: {'teacher_id':teacher_id},
+				success: function(data){
+				    $('.delete-teacher-button').parent().remove();
+				}
+
+			});
+    });
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    };
+
+
+    var counter = 1;
+
+    $('#addlesson').click(function(){
+        var listitem = $('<li><label for="lesson_documents-'+counter+'"> </label> <table id="lesson_documents-'+counter+'"><tbody><tr><th><label for="lesson_documents-'+counter+'-lesson_document">Lesson Document Link</label></th><td><input id="lesson_documents-'+counter+'-lesson_document" name="lesson_documents-'+counter+'-lesson_document" type="text"></td></tr></tbody></table></li>')
+        counter++;
+        $('#lesson_documents').append(listitem);
+    });
+
+$(document).ready(function() {
+    $('#student-complain-table').DataTable();
+    $('#student-payment-table').DataTable();
+});
+$('#complain-table-body').on('click','button.issue-resolved',function () {
+    let complain_id = $(this).attr('id');
+
+    let parent = $(this).parent();
+     $.ajax({
+				type: 'POST',
+				url: '/teacheradminpanel_resolve_complain',
+
+				data: {'complain_id':complain_id},
+				success: function(data){
+
+				}
+
+			});
+
+    parent.empty();
+    parent.append('<p>Resolved!</p>')
+
+});
+
+$(document).ready(function() {
+    $('#summary-table').DataTable();
+});
+$('#teacher-salary-select').change(function () {
+    $('.summary-container').css('display','none');
+    $('.account-details-container').css('display','none');
+   let teacher_id = $('#teacher-salary-select option:selected').val()
+    let gettable = '#salary-'+teacher_id;
+    let getacc = '#accdetails-'+teacher_id;
+
+    $(gettable).css('display','block');
+    $(getacc).css('display','block');
+});
+$('#v-pills-teacher-salary').on('click','button.update-salary',function () {
+    let salary_id = $(this).attr('id');
+
+    let salary = $('.salary-text-'+salary_id).val();
+    let salarytext = '#salarytext-'+salary_id;
+    let salarybox = $(salarytext);
+    if ($.isNumeric(salary)===true){
+        $('.salary-text').val('');
+        $.ajax({
+                    type: 'POST',
+                    url: '/teacheradminpanel_update_salary',
+
+                    data: {'salary_id':salary_id,'salary':salary},
+                    success: function(data){
+                        $(salarybox).text(salary);
+                    }
+
+                });
+    }
+    else {
+        alert('Please enter numbers in salary!');
+
+    };
+
+
+})
+</script>
+{% endblock scripts_content %}

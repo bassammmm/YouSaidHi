@@ -1,0 +1,555 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+
+}
+
+h1, h2, h3, h4,h5,h6 {
+    font-family: 'Quicksand', sans-serif;!important;
+}
+
+p, strong {
+    font-family: sans-serif;
+}
+
+
+#background-img {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:  url(html_pics/auditorium-benches-chairs-class-207691.jpg)  no-repeat;
+    background-size: contain;
+    background-position: top center;
+    position: relative;
+
+}
+#background-img:after {
+    content: '';
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+
+.form-container {
+    height: 500px;
+    width: 500px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form-container h1 {
+    color: #fff;
+    font-size: 3em;
+    z-index: 2;
+    text-align: center;
+
+}
+.form-container span{
+    color: aqua;
+}
+.form-container p{
+    color: white;
+}
+* {box-sizing: border-box;}
+
+/* Style the input container */
+.input-container {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.alert-class-edit{
+    margin: auto;
+    width: 50%;
+    margin-top: 20px;
+}
+/* Style the form icons */
+.icon {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+    z-index:2;
+}
+
+/* Style the input fields */
+.input-field {
+    width: 400px;
+    padding: 10px;
+    outline: none;
+    z-index: 2;
+}
+
+.input-field:focus {
+    border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+
+#form-main{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+   margin-top: 1.5em;
+    flex-direction: column;
+    align-items: center;
+
+}
+#form-main-sign{
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    margin-top: 1.5em;
+    flex-direction: column;
+    align-items: center;
+
+}
+#signin{
+    display: flex;
+    justify-content: flex-end;
+
+}
+#signin a{
+    z-index: 5;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+
+}
+
+
+#signin-button{
+    display: flex;
+}
+.signinbutton {
+    z-index: 2;
+
+    background: #5fecca;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    height: 50px;
+    line-height: 48px;
+    padding: 0;
+    display: block;
+    width: 100%;
+    margin: 20px 0 0 0;
+    color: rgba(0,0,0,0.8);
+    text-shadow: 1px 1px 3px grey;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 0 9px rgba(0,0,0,.4);
+    -ms-box-shadow: 0 0 9px rgba(0,0,0,.4);
+    -o-box-shadow: 0 0 9px rgba(0,0,0,.4);
+    box-shadow: 0 0 9px rgba(0,0,0,.4);
+
+}
+#signin-para{
+    display: flex;
+    justify-content: center;
+}
+#signin-para p{
+
+    padding-top: 10px;
+    z-index: 2;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+#signin-para p a{
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: red;
+}
+#background-register {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+
+    background:  url(html_pics/auditorium-benches-chairs-class-207691.jpg) no-repeat;
+    background-size: contain;
+    background-position: top center;
+    position: relative;
+    justify-content: center;
+
+}
+#background-register:after {
+    content: '';
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+#register-container{
+
+    overflow: hidden;
+    z-index: 2;
+    width: 80rem;
+    height: 40rem;
+    /*background-color: white;*/
+    border-radius: 0.6rem;
+    margin-top: 60px;
+    margin-bottom: 200px;
+
+}
+.progressbar {
+
+    counter-reset: step;
+    margin-top: 10px;
+
+
+
+
+}
+.progressbar li{
+    list-style-type: none;
+    float: left;
+    width: 33.33%;
+    position: relative;
+    text-align: center;
+}
+.progressbar li:before{
+
+
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    content: counter(step);
+    counter-increment: step;
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    border: 1px solid #ddd;
+    display: block;
+    background-color: white;
+    position: relative;
+
+
+}
+.progressbar li:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    right: 200px;
+    top: 15px;
+    z-index: -1;
+
+
+}
+.progressbar li:first-child:after{
+    content: none;
+}
+.progressbar li.active{
+    color: green;
+
+}
+.progressbar li.active:before{
+    border-color: green;
+    color: green;
+
+}
+.progressbar li.active + li:after{
+    background-color: green;
+;
+}
+
+/* Style the input container */
+.input-container {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Style the form icons */
+.icon {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+    z-index:2;
+}
+
+/* Style the input fields */
+.input-field {
+    width: 400px;
+    padding: 10px;
+    outline: none;
+    z-index: 2;
+}
+
+.input-field:focus {
+    border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+
+#form-main{
+    padding-top: 40px;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    margin-top: 1.5em;
+    flex-direction: column;
+    align-items: center;
+
+}
+#signup{
+    display: flex;
+    justify-content: flex-end;
+
+}
+#signup a{
+    z-index: 5;
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+
+}
+#signin-button{
+    display: flex;
+}
+#signin-button button{
+    z-index: 2;
+
+    background: #5fecca;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    height: 50px;
+    line-height: 48px;
+    padding: 0;
+    display: block;
+    width: 100%;
+    margin: 20px 0 0 0;
+    color: white;
+    text-shadow: 1px 1px 3px grey;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 0 9px rgba(0,0,0,.4);
+    -ms-box-shadow: 0 0 9px rgba(0,0,0,.4);
+    -o-box-shadow: 0 0 9px rgba(0,0,0,.4);
+    box-shadow: 0 0 9px rgba(0,0,0,.4);
+
+}
+#singup-para{
+    display: flex;
+    justify-content: center;
+}
+#singup-para p{
+
+    padding-top: 10px;
+    z-index: 2;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+#singup-para p a{
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: red;
+}
+.nextbutton{
+    border: 1px solid gray;
+    height:50px;
+    border-radius: 50px;
+    width:50px;
+    display: flex;
+    align-self: center;
+    margin: 7% 10% 1% 45%;;
+    background-color: white;
+    box-shadow: 1px 1px 3px gray;
+    justify-content: center;
+}
+
+.nextbutton:hover{
+    background-color: #c2c2c2;
+}
+.logup-ship-prev{
+    text-decoration: none;
+    margin: 40px 0px 0px 25rem;
+
+}
+#card{
+    width: 80%;
+    height: 400px;
+    background-color: white;
+    border: 2px solid #006fbf;
+    border-radius: 5px;
+    margin-top: 10%;
+    box-shadow: 1px 1px 3px gray;
+    margin-left: 40px;
+
+}
+
+.header {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    padding: 17px 0 13px;
+    background-color: #006fbf;
+}
+
+.header h2{
+    color: #ff281a;
+    font-weight:bold;
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.header2 {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    padding: 17px 0px  20px;
+    background-color: #006fbf;
+    height: 10%;
+}
+.details {
+    padding-left: 20px;
+    padding-top: 30px;
+
+}
+
+.details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.details ul li {
+    padding-left: 1em;
+    margin-bottom: 10px;
+    text-indent: -.7em;
+}
+
+.details ul li::before {
+    content: "• ";
+    color: red; /* or whatever color you prefer */
+}
+.header2 h2{
+
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    bottom: 2px;
+}
+.price{
+
+    font-weight: bolder;
+    font-size: 30px;
+    margin-left: 20px;
+    color: #ff2726;
+}
+.price-container h2{
+    display: inline-block !important;
+}
+
+
+.btn-buy-container{
+    text-align: center;
+}
+/*.member-ship-next {*/
+/*    display: flex;*/
+/*    justify-content: flex-end;*/
+/*    padding-top: 30px;*/
+/*    padding-right: 30px;*/
+/*}*/
+
+.member-ship-prev{
+    margin-top: 43px;
+    border: 1px solid gray;
+    height: 50px;
+    border-radius: 50px;
+    width: 50px;
+    box-shadow: 1px 1px 3px gray;
+}
+.member-ship-prev:hover{
+    background-color: #c2c2c2;
+}
+.pay-ship-prev{
+]
+padding-top: 30px;
+    padding-left: 30px;
+}
+.back-button{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    z-index: 2;
+    background: #000;
+}
+
+.back-button:focus {
+    outline: none!important;
+}
+.remember-me-label{
+    z-index:3;
+    color: #ffffff;
+}
+
+.back-button{
+    background-color: transparent;
+    position: absolute;
+    top: 10px;
+    left: 1em;
+    z-index: 2;
+    border-radius: 40px;
+    width: 130px;
+    height: 60px;
+    border: 3px solid #00B0FF;
+    transition: .2s ease;
+    color: #ffffff;
+    text-align: center;
+}
+.back-button:hover{
+    background-color: #00B0FF;
+    color: #000000;
+    border: 3px solid #00B0FF;
+
+
+}
+.back-button:hover{
+    color: #ffffff;
+}
+.back-icon{
+    text-align: center;
+    /*color:#ffffff;*/
+    font-size: 1.5em;
+}
+/*.alert{*/
+/*    opacity: 0.7!important;*/
+/*    z-index: 999!important;*/
+/*}*/
+.invalid-feedback{
+    color: white!important;
+}

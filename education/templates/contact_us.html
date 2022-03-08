@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block style_content %}
+    <link rel="stylesheet" href="{{url_for('static',filename='contact.css')}}">
+    <title>yousaidhi - Contact</title>
+    <link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.ico')}}" type ="image/x-icon">
+{% endblock style_content %}
+{% block body_content %}
+
+<div id="contact-us-image-main">
+    <img id="contact-us-banner" src="{{url_for('static',filename='html_pics/contact-us-banner.jpg')}}">
+</div>
+<div class="header-lower-border">
+</div>
+
+
+<div class="container" id="contact-us-info">
+    <div id="row-contact">
+        <div class="column-contact-us" id="col-left">
+            <div class="column-left-wrapper">
+                <h3>Call To Contact</h3>
+                <p></p>
+                <br>
+                <span class="phone-span"><img src="{{url_for('static',filename='html_pics/phone.svg')}}" style="padding-right: 20px" <p><b>+923312326945</b></p></span>
+                <br>
+                <br>
+                <h3>Mail To Contact</h3>
+                <p></p>
+                <br>
+                <span class="mail-span"><img src="{{url_for('static',filename='html_pics/mail.svg')}}"  style="padding-right: 10px; height: 70px; width: 70px" <p><b>yousaidhiacc@gmail.com</b></p></span>
+                <br>
+
+
+            </div>
+
+            <!--<div id="row-inner-section-contact">-->
+                <!--<div class="column-contact-us-inner" id="col-right-inner-contact">-->
+                    <!--<p>Please click here to <a>contact</a> us</p>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        </div>
+        <div class="column-contact-us" id="col-right">
+            <div id="contact-left-box">
+
+
+                    <div id="forms-contact-us">
+                        <h2 id="contact-box-head">Write to yousaidhi!</h2>
+                        <div class="mail-contact-us-box">
+                            <i class="fa fa-envelope" id="mail-icon-contact"></i><input id="email-box-contact-us" placeholder="      Your Email Here">
+                        </div>
+                        <div class="mail-contact-us-box">
+                            <i class="fa fa-key" id="mail-icon-contact"></i><input id="pw-box-contact-us" placeholder="      Your Subject Here">
+                        </div>
+                        <div class="mail-contact-us-box">
+                            <i class="fa fa-question" id="mail-icon-contact" style="margin-left: 10px"></i><input id="question-box-contact-us" placeholder="      Your Message Here">
+                        </div>
+                        <button class="mbtn blue submit-contact">Submit</button>
+                    </div>
+
+
+        </div>
+    </div>
+
+    </div>
+</div>
+{% endblock body_content %}
+
+
+
+
+{% block scripts_content %}
+<script src="{{url_for('static',filename='scripts/jQuery.js')}}"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.submit-contact').click(function () {
+            let email = $('#email-box-contact-us').val();
+            let subject = $('#pw-box-contact-us').val();
+            let message = $('#question-box-contact-us').val();
+            $('#contact-box-head').text('Your message is being delivered..');
+            $.ajax({
+				type: 'POST',
+				url: '/contact_message',
+
+				data: {'email':email,'subject':subject,'message':message} ,
+				success: function(data){
+				    $('#email-box-contact-us').val('');
+                    $('#pw-box-contact-us').val('');
+                    $('#question-box-contact-us').val('');
+                    $('#contact-box-head').text('Your message has been received :)');
+				}
+
+			});
+
+        });
+
+
+    });
+
+</script>
+{% endblock scripts_content %}

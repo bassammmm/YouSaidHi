@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>yousaidhi - Register</title>
+    <link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.ico')}}" type ="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+</head>
+<body>
+
+<div id="background-register">
+     <button type="button" class="back-button">
+        <a href="{{url_for('home')}}" style="text-decoration: none;"><i class="fa fa-angle-left fa-3x back-icon"></i></a>
+    </button>
+    <div class="container" id="register-container">
+
+        <form method="POST" action="" id="form-alert">
+            {{ form.hidden_tag() }}
+            {% with messages = get_flashed_messages(with_categories=true)%}
+                        {% if messages %}
+                            {% for category,message in messages %}
+                                <div class="alert-class-edit alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div id="form-main">
+                        <div style="text-align:center;display: block;">
+
+                            <div class="input-container">
+                                <i class="fa fa-user icon"></i>
+                                {% if form.first_name.errors %}
+                                    {{ form.first_name(class="input-field is-invalid f-name-reg",placeholder="First Name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.first_name.errors%}
+                                            <span> {{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.first_name(class="input-field form-first-name f-name-reg",placeholder="First Name") }}
+                                {% endif %}
+                            </div>
+                            <div class="input-container">
+                                <i class="fa fa-user icon"></i>
+                                {% if form.last_name.errors %}
+                                    {{ form.last_name(class="input-field is-invalid",placeholder="Last Name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.last_name.errors%}
+                                            <span> {{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.last_name(class="input-field form-last-name",placeholder="Last Name") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="input-container">
+                                <i class="fa fa-envelope icon"></i>
+                                {% if form.email.errors %}
+                                    {{ form.email(class="input-field is-invalid",placeholder="Email") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors%}
+                                            <span> {{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="input-field form-email",placeholder="Email") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="input-container">
+                                <i class="fa fa-key icon"></i>
+                                {% if form.password.errors %}
+                                    {{ form.password(class="input-field is-invalid",placeholder="Password") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors%}
+                                            <span> {{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="input-field form-password",placeholder="Password") }}
+                                {% endif %}
+                            </div>
+                            <div class="input-container">
+                                <i class="fa fa-check icon"></i>
+                                {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="input-field is-invalid",placeholder="Confirm Password") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.confirm_password.errors%}
+                                            <span> {{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.confirm_password(class="input-field form-confirm-password",placeholder="Confirm Password") }}
+                                {% endif %}
+                            </div>
+                            <div class="input-container">
+                                <i class="fa fa-check icon"></i>
+                                {% if form.country.errors %}
+                                    {{ form.country(class="input-field is-invalid",rows=nl, multiple=False,placeholder="Select Country") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.country.errors%}
+                                            <span> {{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.country(class="input-field form-confirm-password",rows=nl, multiple=False,placeholder="Select Country") }}
+                                {% endif %}
+                            </div>
+                            <div class="input-container">
+                                <i class="fa fa-check icon"></i>
+                                {% if form.language.errors %}
+                                    {{ form.language(class="input-field is-invalid",rows=nl, multiple=False,placeholder="Select Language") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.language.errors%}
+                                            <span> {{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.language(class="input-field form-confirm-password",rows=nl, multiple=False,placeholder="Select Language") }}
+                                {% endif %}
+                            </div>
+
+
+                            <div class="alert-class-edit alert alert-danger error-message" style="display: none;">
+
+                            </div>
+
+
+                    {{ form.submit(class="btn btn-outline-success submit-register-button") }}
+
+                    </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+        </form>
+
+
+    </div>
+
+</div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $('.nextbutton').click(function () {
+        var emails = {{emails|safe}}
+        if ($('.form-first-name').val()=='' || $('.form-last-name').val()=='' || $('.form-email').val()=='' || $('.form-password').val()=='' || $('.form-confirm-password').val()==''){
+            console.log('Fill all fields');
+            $('.error-message').css('display','block');
+            $('.error-message').html("Please Fill All Fields");
+        }
+        else if ( ($('.form-email').val().indexOf('@')==-1)){
+            console.log('Incorrect email format');
+            $('.error-message').css('display','block');
+            $('.error-message').html("Please enter correct email!");
+        }
+        else if ($('.form-password').val()!==$('.form-confirm-password').val()){
+            console.log('Incorrect passwords');
+            $('.error-message').css('display','block');
+            $('.error-message').html("Passwords do not match.");
+
+        }
+        else if (emails.indexOf($('.form-email').val())!==-1 ){
+            console.log('Email already registered')
+            $('.error-message').css('display','block');
+            $('.error-message').html("Email already registered!.");
+        }
+        else{
+
+            $('#step-1').removeClass('active');
+            $('#step-2').addClass('active');
+            $('#form-main').css('display','none');
+            $('.elem2').css('display','block');
+        }
+
+    });
+
+    $('.member-ship-next').click(function () {
+        console.log('here');
+        $('#step-2').removeClass('active');
+        $('#step-3').addClass('active');
+
+
+    });
+    $('.member-ship-next').click(function () {
+        $('.form-package-name').val($(this).attr('id'));
+        $('.elem2').css('display','none');
+        $('.elem3').css('display','block');
+        $('.membership-text').html($(this).attr('id'));
+
+    });
+
+    $('.member-ship-prev').click(function () {
+        console.log('here');
+        $('#step-2').removeClass('active');
+        $('#step-1').addClass('active');
+
+
+    });
+    $('.member-ship-prev').click(function () {
+        $('.elem2').css('display','none');
+        $('#form-main').css('display','flex');
+
+    });
+    $('.pay-ship-prev').click(function () {
+        $('.elem3').css('display','none');
+        $('.elem2').css('display','block');
+
+    });
+    $('.pay-ship-prev').click(function () {
+        console.log('here');
+        $('#step-3').removeClass('active');
+        $('#step-2').addClass('active');
+
+
+    });
+
+
+    $('.submit-register-button').click(function (e) {
+        let f_name = $('.f-name-reg').val();
+        $('.alert-class-edit').remove();
+        if (!/^[a-z]+$/i.test(f_name)){
+            e.preventDefault();
+            $('#form-alert').prepend('<div class="alert-class-edit alert alert-danger">\n' +
+                '                                    Enter Proper Name Please!\n' +
+                '                                </div>')
+        }
+
+    })
+
+
+</script>
+
+
+</body>
+</html>

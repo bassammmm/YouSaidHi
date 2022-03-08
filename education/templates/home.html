@@ -1,0 +1,518 @@
+{% extends "layout.html" %}
+
+{% block style_content %}
+			<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+		<link rel="stylesheet" href="{{url_for('static',filename='home.css')}}">
+		<title>yousaidhi - Home</title>
+		<link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.ico')}}" type ="image/x-icon"  >
+{% endblock style_content %}
+
+		{% block header_content %}
+
+	<!--	<div class="home-page-banner-logo" height: 300px; width: 300px; overflow: hidden;>
+						<img class="home-page-banner-logo-img" src="{{url_for('static',filename='html_pics/logo.png')}}" alt="" height=300px>
+					</div> -->
+
+		<header class="homepage-header-container">
+			<div class="homepage-slider">
+
+					<div class="slider-image">
+						<div class="slide-content">
+							<h1 class="slide-1-h1">English Speaking Skills At Your Fingertips</h1>
+							<div class="slider-content-buttons">
+								<a  href="{{url_for('register')}}"><button class="slider-content-register-now-button"><p>Register Now</p></button></a>
+								<a  href="{{url_for('contact_us')}}"><button class="slider-content-contact-us-button"><p>Contact Us</p></button></a>
+							</div>
+						</div>
+						<img src="{{url_for('static',filename='html_pics/main.jpg')}}"
+												   alt="Image Loading ..">
+
+
+					</div>
+
+
+			</div>
+		</header>
+		{% endblock header_content %}
+
+
+
+{% block body_content %}
+
+<section class="mega-card-2">
+   <div class="mega-card-wrapper-2">
+      <div class="mega-card-col-1">
+         <div class="mega-card-img-1">
+
+			 <img src="{{url_for('static',filename='html_pics/Lectures-01.png')}}" alt="">
+         </div>
+         <div class="mega-card-content-1">
+            <h2>Lectures</h2>
+            <p>You can book lessons with our qualified teachers at your preferred time. Our teachers are available 24/7 and will teach you with the help of inclusive course material.</p>
+         </div>
+      </div>
+      <div class="mega-card-col-2">
+         <div class="mega-card-img-2">
+            <img src="{{url_for('static',filename='html_pics/Educational Videos-01.png')}}"
+alt="">
+         </div>
+         <div class="mega-card-content-2">
+            <h2>Educational Videos</h2>
+            <p>You get access to many educational videos so that when you are not taking lectures, you can enjoy our videos and improve your English learning skills! </p>
+         </div>
+      </div>
+      <div class="mega-card-col-3">
+         <div class="mega-card-img-3">
+			 <img src="{{url_for('static',filename='html_pics/coursess-01.png')}}"
+alt="">
+		 </div>
+         <div class="mega-card-content-3">
+            <h2>Course Material</h2>
+            <p>You get access to various course materials and their related exercises. Our curriculum is created by professional syllabus designers and is tailored to make you understand every lesson well.</p>
+         </div>
+      </div>
+   </div>
+</section>
+
+
+
+
+
+	<section class="our-aims-section">
+		<div class="container our-aims-container">
+			<div class="aims-header">
+				<h1>Our Aims & Objectives</h1>
+			</div>
+
+			<div class="aims-flex-container">
+				<div class="aims-row-1">
+					<div class="aim-image-1" id="aim-image-1">
+						<img src="{{url_for('static',filename='html_pics/study_eng.png')}}"
+						     alt="">
+					</div>
+					<div class="aim-content-1">
+						<strong class="auth-name">Why do we study English?</strong>
+						<p class="aim-1-para">
+				English is a global language. If you are good at it, you can get yourself into schools abroad, you can have market competent jobs,
+				you can have access to the resources on the internet,
+				you can travel internationally with no hesitation.
+				It is the top language of the internet, so if you know English you can be a part of the social world,
+				you can have friends over the internet, you can read books by English authors and you can also watch Hollywood blockbusters.
+				English not only open doors to new career opportunities but also it will give you access to unlimited entertainment.
+			            </p>
+
+
+
+					</div>
+				</div>
+
+				<div class="aims-row-2">
+
+					<div class="aim-content-2">
+						<strong class="auth-name">What is yousaidhi?</strong>
+						<p class="aim-2-para">
+						It is an ESL learning website designed to help foreign students practice and improve their English speaking and learning ability.
+						It is unique in the sense that it always offers quality classes at a very affordable rate. You can book a lesson anytime 24/7 with your teacher.
+						You can choose courses from a wide range of lessons as per your level, be it beginner, intermediate or advanced.
+						We’ve got it all covered
+						</p>
+
+
+					</div>
+					<div class="aim-image-2" id="aim-image-2">
+						<img src="{{url_for('static',filename='html_pics/what_yousaidhi.png')}}"
+						     alt="">
+					</div>
+				</div>
+
+				<div class="aims-row-3">
+					<div class="aim-image-3" id="aim-image-3">
+						<img src="{{url_for('static',filename='html_pics/why.png')}}"
+						     alt="">
+					</div>
+					<div class="aim-content-3">
+						<strong class="auth-name">Why yousaidhi?</strong>
+						<p class="aim-3-para">
+						Here, our primary goal is to provide our students comfort, confidence, and consistent room for improvement.
+						We have competent teachers from all over the world who have gained certificates from reputable institutes.
+						Our lessons are designed by experts who are native English speakers.
+						Learning a new language can be a little tiring, but at yousaidhi, we can guarantee all your classes will be fun and productive class.
+						</p>
+
+
+					</div>
+				</div>
+
+				<div class="aims-row-4">
+
+					<div class="aim-content-4">
+						<strong class="auth-name">What can you expect from yousaidhi?</strong>
+						<p class="aim-4-para">
+						All our teachers hold a minimum degree of bachelor’s or above, are experienced and internationally certified to teach foreign students.
+						They are selected carefully and undergo rigorous training so that they can give out the best to their students.
+						Each lesson is tailored to fit 25 minutes which ensures maximum output within minimum time.
+						</p>
+
+
+					</div>
+					<div class="aim-image-4" id="aim-image-4">
+						<img src="{{url_for('static',filename='html_pics/expect.png')}}"
+						     alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="homepage-courses">
+		<div class="courses-header">
+			<h1 id="courses-header-text">Our Courses</h1>
+			<p>Our courses are carefully structured and include a variety of topics to make sure that your interest remains developed throughout your learning journey!
+            </p>
+		</div>
+
+		<div class="courses-cards-container">
+
+			<div class="course-card-1" data-aos="zoom-in-up">
+				<div class="circle-img-box-1">
+					{%if courses[0].course_image=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/courses/default.jpg')}}" alt="" class="avatar circle-img-box-1-img">
+
+				    {% else %}
+						<img src="{{url_for('static',filename='data/courses/'+courses[0].course_code+'/'+courses[0].course_image)}}" alt="" class="avatar circle-img-box-1-img">
+                    {% endif %}
+
+				</div>
+				<div class="course-card-content-1">
+					<h1 id="course-name-1">{{courses[0].course_name}}</h1>
+
+					<p id="course-details-1">
+						{{courses[0].course_description[:100]}}...
+
+					</p>
+
+
+				</div>
+			</div>
+
+			<div class="course-card-2" data-aos="zoom-in-up" data-aos-delay="100">
+				<div class="circle-img-box-2">
+					{%if courses[1].course_image=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/courses/default.jpg')}}" alt="" class="avatar circle-img-box-1-img">
+
+				    {% else %}
+						<img src="{{url_for('static',filename='data/courses/'+courses[1].course_code+'/'+courses[1].course_image)}}" alt="" class="avatar circle-img-box-1-img">
+                    {% endif %}
+				</div>
+				<div class="course-card-content-2">
+					<h1 id="course-name-2">{{courses[1].course_name}}</h1>
+
+					<p id="course-details-2">
+						{{courses[1].course_description[:100]}}...
+
+					</p>
+
+
+				</div>
+			</div>
+			<div class="course-card-2" data-aos="zoom-in-up" data-aos-delay="100">
+				<div class="circle-img-box-2">
+					{%if courses[2].course_image=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/courses/default.jpg')}}" alt="" class="avatar circle-img-box-1-img">
+
+				    {% else %}
+						<img src="{{url_for('static',filename='data/courses/'+courses[2].course_code+'/'+courses[2].course_image)}}" alt="" class="avatar circle-img-box-1-img">
+                    {% endif %}
+				</div>
+				<div class="course-card-content-2">
+					<h1 id="course-name-2">{{courses[2].course_name}}</h1>
+
+					<p id="course-details-2">
+						{{courses[2].course_description[:100]}}...
+
+					</p>
+
+
+				</div>
+			</div>
+			<div class="course-card-2" data-aos="zoom-in-up" data-aos-delay="100">
+				<div class="circle-img-box-2">
+					{%if courses[3].course_image=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/courses/default.jpg')}}" alt="" class="avatar circle-img-box-1-img">
+
+				    {% else %}
+						<img src="{{url_for('static',filename='data/courses/'+courses[3].course_code+'/'+courses[3].course_image)}}" alt="" class="avatar circle-img-box-1-img">
+                    {% endif %}
+				</div>
+				<div class="course-card-content-2">
+					<h1 id="course-name-2">{{courses[3].course_name}}</h1>
+
+					<p id="course-details-2">
+						{{courses[3].course_description[:100]}}...
+
+					</p>
+
+
+				</div>
+			</div>
+
+
+
+		</div>
+		<a  href="{{url_for('courses')}}"><button class="btn courses-details-button"><p>View Courses</p></button></a>
+	</section>
+
+
+	<section class="reviews-section">
+		<div class="reviews-flex-container">
+			<div class="review-1">
+				<button class="btn arrow-left"><i class="fas fa-arrow-left"></i></button>
+				<div class="review-img-1">
+					<img src="{{url_for('static',filename='html_pics/review1.jfif')}}"
+					     class="img-1 img-fluid" alt="">
+					<img src="{{url_for('static',filename='html_pics/review2.jfif')}}"
+					     class="img-2 img-fluid" alt="">
+					<img src="{{url_for('static',filename='html_pics/review3.jfif')}}"
+					     class="img-3 img-fluid" alt="">
+				     <img src="{{url_for('static',filename='html_pics/review4.jpg')}}"
+					     class="img-4 img-fluid" alt="">
+				</div>
+
+				<div class="main-content-div">
+					<div class="review-content-1">
+					<div class="inner-img-div-1">
+						<img src="{{url_for('static',filename='html_pics/review1.jfif')}}"
+						     alt="" class="avatar review-profile-1">
+						<div class="user-details-review-1">
+							<strong class="review-user-name-1">Harrriet</strong>
+							<p class="user-since-1">Student</p>
+						</div>
+					</div>
+
+					<p class="review-details-1">
+						I love my teachers here. They are very helpful and patient. Learning English helped me in school too. I have gained so many friends now. Thank you, teacher.
+					</p>
+
+
+
+
+				</div>
+					<div class="review-content-2">
+						<div class="inner-img-div-1">
+							<img src="{{url_for('static',filename='html_pics/review2.jfif')}}"
+							     alt="" class="avatar review-profile-2">
+							<div class="user-details-review-2">
+								<strong class="review-user-name-2">Anna</strong>
+								<p class="user-since-2">Student</p>
+							</div>
+						</div>
+
+						<p class="review-details-2">
+							It is one of the best places to learn English! You can easily select any lesson and then get access to it's course material! Each lesson is very informative and structured. I absolutely loved my experience. Its affordable and it helped me a lot.
+						</p>
+
+					</div>
+
+
+
+					<div class="review-content-3">
+						<div class="inner-img-div-3">
+							<img src="{{url_for('static',filename='html_pics/review3.jfif')}}"
+							     alt="" class="avatar review-profile-3">
+							<div class="user-details-review-3">
+								<strong class="review-user-name-3">Zack</strong>
+								<p class="user-since-3">Student</p>
+							</div>
+						</div>
+
+						<p class="review-details-3">
+						It is a wonderful platform. I started taking lessons a while ago and I was amazed at the enthusiasm of the team and the teachers! I would surely recommend yousaidhi.com to anyone who wants to learn English from scratch!
+
+						</p>
+
+					</div>
+
+					<div class="review-content-4">
+						<div class="inner-img-div-4">
+							<img src="{{url_for('static',filename='html_pics/review4.jpg')}}"
+							     alt="" class="avatar review-profile-4">
+							<div class="user-details-review-4">
+								<strong class="review-user-name-4">Adam</strong>
+								<p class="user-since-4">Student</p>
+							</div>
+						</div>
+
+						<p class="review-details-4">
+							I really like it here. The best part is that the lessons really fit my interest. The teachers make the class very interesting.
+						</p>
+
+					</div>
+
+				</div>
+
+
+
+
+
+				<button class="btn arrow-right"><i class="fas fa-arrow-right"></i></button>
+			</div>
+
+
+
+		</div>
+
+
+
+
+
+
+
+	</section>
+
+
+	<section class="teachers-section">
+		<div class="teacher-section-header">
+			<h1 id="teachers-header-text">Our Capable Teachers</h1>
+			<p>Our teachers are handpicked by our staff to make sure you receive quality education.</p>
+		</div>
+
+		<div class="teachers-main-box">
+			<div class="teacher-div-1" data-aos="zoom-in-up" >
+				<div class="teacher-image-1">
+					{%if teachers[0].image_file=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/teachers/default.jpg')}}" alt="student-img" class="avatar student-profile-img">
+
+				    {% else %}
+					<img src="{{url_for('static',filename='data/teachers/'+teachers[0].first_name +'_'+teachers[0].email+'/'+teachers[0].image_file)}}"
+					     alt="" class="teacher-img-1 avatar">
+                    {% endif %}
+
+				</div>
+				<div class="teacher-details-1">
+					<h1 class="teacher-name">{{teachers[0].first_name}} {{teachers[0].last_name}}</h1>
+					<strong class="role-name">Teacher</strong>
+					<p class="teacher-quote">I am an ambitious workaholic, but apart from that, pretty simple person.</p>
+				</div>
+			</div>
+
+			<div class="teacher-div-2" data-aos="zoom-in-up" data-aos-delay="100">
+				<div class="teacher-image-2">
+					{%if teachers[1].image_file=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/teachers/default.jpg')}}" alt="student-img" class="avatar student-profile-img">
+
+				    {% else %}
+					<img src="{{url_for('static',filename='data/teachers/'+teachers[1].first_name +'_'+teachers[1].email+'/'+teachers[1].image_file)}}"
+					     alt="" class="teacher-img-1 avatar">
+                    {% endif %}
+
+				</div>
+				<div class="teacher-details-2">
+					<h1 class="teacher-name">{{teachers[1].first_name}} {{teachers[1].last_name}}</h1>
+					<strong class="role-name">Teacher</strong>
+					<p class="teacher-quote">I will make sure that you are satisfied with the lecture!</p>
+				</div>
+			</div>
+
+			<div class="teacher-div-3" data-aos="zoom-in-up" data-aos-delay="200">
+				<div class="teacher-image-3">
+					{%if teachers[2].image_file=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/teachers/default.jpg')}}" alt="student-img" class="avatar student-profile-img">
+
+				    {% else %}
+					<img src="{{url_for('static',filename='data/teachers/'+teachers[2].first_name +'_'+teachers[2].email+'/'+teachers[2].image_file)}}"
+					     alt="" class="teacher-img-1 avatar">
+                    {% endif %}
+				</div>
+				<div class="teacher-details-3">
+					<h1 class="teacher-name">{{teachers[2].first_name}} {{teachers[2].last_name}}</h1>
+					<strong class="role-name">Teacher</strong>
+					<p class="teacher-quote">I will make you as fluent in English as one can get.</p>
+				</div>
+			</div>
+
+			<div class="teacher-div-4" data-aos="zoom-in-up" data-aos-delay="300">
+				<div class="teacher-image-4">
+					{%if teachers[3].image_file=='default.jpg'%}
+                        <img src="{{url_for('static',filename='data/teachers/default.jpg')}}" alt="student-img" class="avatar student-profile-img">
+
+				    {% else %}
+					<img src="{{url_for('static',filename='data/teachers/'+teachers[3].first_name +'_'+teachers[3].email+'/'+teachers[3].image_file)}}"
+					     alt="" class="teacher-img-1 avatar">
+                    {% endif %}
+				</div>
+				<div class="teacher-details-4">
+					<h1 class="teacher-name">{{teachers[3].first_name}} {{teachers[3].last_name}}</h1>
+					<strong class="role-name">Teacher</strong>
+					<p class="teacher-quote">I am a friendly person. I love teaching!</p>
+				</div>
+			</div>
+
+		</div>
+		<a href="{{url_for('teachers')}}"><button class="btn teacher-details-button" style="outline: none"><p>View All Teachers</p></button></a>
+	</section>
+
+
+{% endblock body_content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block scripts_content %}
+	<script src="{{url_for('static',filename='scripts/home.js')}}"></script>
+	<script>
+        AOS.init();
+	</script>
+
+
+
+	<script>
+        $(document).ready(function () {
+            $('.arrow-left,.arrow-right').click(function () {
+
+                if ($('.review-content-1').css('opacity')==='1'){
+                    $('.img-1').css({'top':'-50%', 'opacity': '0'});
+                    $('.img-2').css({'top':'0', 'opacity': '1'});
+	                $('.review-content-1').css({'right':'-30%', 'opacity': '0'});
+	                $('.review-content-2').css({'right':'0', 'opacity': '1'});
+                }
+                else if ($('.review-content-2').css('opacity')==='1'){
+                    $('.img-2').css({'top':'-50%', 'opacity': '0'});
+                    $('.img-3').css({'top':'0', 'opacity': '1'});
+                    $('.review-content-2').css({'right':'-30%', 'opacity': '0'});
+                    $('.review-content-3').css({'right':'0', 'opacity': '1'});
+                }
+	            else if ($('.review-content-3').css('opacity')==='1'){
+                    $('.img-3').css({'top':'-50%', 'opacity': '0'});
+                    $('.img-4').css({'top':'0', 'opacity': '1'});
+                    $('.review-content-3').css({'right':'-30%', 'opacity': '0'});
+                    $('.review-content-4').css({'right':'0', 'opacity': '1'});
+                }
+                else if ($('.review-content-4').css('opacity')==='1'){
+                    $('.img-4').css({'top':'-50%', 'opacity': '0'});
+                    $('.img-1').css({'top':'0', 'opacity': '1'});
+                    $('.review-content-4').css({'right':'-30%', 'opacity': '0'});
+                    $('.review-content-1').css({'right':'0', 'opacity': '1'});
+                }
+            });
+        });
+	</script>
+
+
+{% endblock scripts_content %}

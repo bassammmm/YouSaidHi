@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>yousaidhi - Login</title>
+    <link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.ico')}}" type ="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lacquer&family=Roboto+Slab&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+
+<div id="background-img">
+        <a class="back-button" href="{{url_for('home')}}" style="text-decoration: none;"><i class="fa fa-angle-left fa-3x back-icon"> </i></a>
+
+    <div class="form-container">
+
+        <h1>Yousaid<span>hi</span></h1>
+        <div id="form-main-sign">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                {% with messages = get_flashed_messages(with_categories=true)%}
+                        {% if messages %}
+                            {% for category,message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                <div class="input-container">
+                    <i class="fa fa-envelope icon"></i>
+
+                    {% if form.email.errors %}
+                        {{ form.email(class="input-field is-invalid",placeholder="Email") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors%}
+                                <span> {{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="input-field",placeholder="Email") }}
+                    {% endif %}
+                </div>
+
+                <div class="input-container">
+                    <i class="fa fa-key icon"></i>
+                    {% if form.password.errors %}
+                        {{ form.password(class="input-field is-invalid",placeholder="Password") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors%}
+                                <span> {{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="input-field",placeholder="Password") }}
+                    {% endif %}
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class="form-check-input remember-me-label") }}
+                    {{ form.remember.label(class="form-check-label remember-me-label") }}
+                </div>
+                <div id="signin">
+                    <a href="">Forgot your password?</a>
+
+
+                </div>
+
+                <div style="display: none;">
+                    {{ form.time_zone(class="input-field time_zone",placeholder="Email") }}
+                </div>
+                <div id="signin-button">
+
+                    {{ form.submit(class="fma-auth__submit-btn signinbutton") }}
+                </div>
+                <div id="signin-para">
+                    <p>Don't have an account? <a href="{{url_for('register')}}">Signup</a></p>
+                </div>
+
+
+            </form>
+        </div>
+
+
+
+
+    </div>
+
+
+
+</div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function () {
+    const user_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    $('.time_zone').val(user_time_zone);
+});
+</script>
+
+</body>
+</html>

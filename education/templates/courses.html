@@ -1,0 +1,212 @@
+{% extends "layout.html" %}
+
+{% block style_content %}
+	<link rel="stylesheet" href="{{url_for('static',filename='courses.css')}}">
+	<title>yousaidhi - Courses</title>
+	<link rel = "icon" href ="{{url_for('static',filename='html_pics/pageicon.ico')}}" type ="image/x-icon">
+{% endblock style_content %}
+
+
+
+
+
+
+
+{% block body_content %}
+
+<div class="main-courses-div">
+<div class="homepage-slider">
+    <div class="slider-image">
+        <div class="slide-content">
+            <div class="slide-content-col-1">
+                <h1 class="slide-content-courses-heading">Courses</h1>
+                <img src="{{url_for('static',filename='html_pics/main.jpg')}}"
+                     alt="Image Loading ..">
+            </div>
+            <div class="slide-content-col-2">
+                <div id="video-container-courses-display-page">
+                    <div class="fullscreen-video-wrap-courses-display-page">
+                        <img src="{{url_for('static',filename='html_pics/courses_banner.gif')}}"
+                     alt="Image Loading ..">
+<!--                        <video id="video-main-courses-display-page" src="{{url_for('static',filename='html_vids/course-video.mp4')}}" type="video/mp4" muted="true" autoplay="true" loop="true"></video>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-lower-border"></div>
+</div>
+
+<div class="courses-main-card">
+    <h1 id="courses-main-heading">Our Premium Courses</h1>
+    <p>Our Courses are carefully structured to make sure that even a beginner can get the most out of our courses!</p>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f0f4f5" fill-opacity="1" id="svg-waves" d="M0,32L40,37.3C80,43,160,53,240,80C320,107,400,149,480,181.3C560,213,640,235,720,202.7C800,171,880,85,960,74.7C1040,64,1120,128,1200,138.7C1280,149,1360,107,1400,85.3L1440,64L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
+<div class="course-packages-wrapper">
+    <div class="container courses-packages">
+    <div  class="container" id="cont-courses-packages">
+
+
+        <div class="row rowp" id="row-courses-packages">
+            {%for course in courses%}
+                <div class=" col-12 col-sm-6 col-md-4 col-md-offset-2" data-aos="flip-up" id="column-courses-display-page" >
+                <div id="hovered-column-display-page">
+                    <div class="picture-courses-display-page">
+                        <a href="#">
+                            <div class="thumbnail-courses-display-page">
+                                <img id="courses-display-pic" src="{{url_for('static',filename='data/courses/'+course.course_code+'/'+course.course_image)}}">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="details-courses-display-page">
+                        <div class="before-hr" id="anchorhead1-courses-display-page">
+                                <h5 class="search-heading">{{course.course_name}}</h5>
+                                <p style="color: rgba(0,0,0,0.6)">{{course.course_description[:150]}}...</p>
+                        </div>
+                        <button class="btn courses-details-display-button" id="view-{{course.id}}"><p>View Details</p></button>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+
+    </div>
+
+    </div>
+</div>
+<div  id="details-courses" style="display: none;">
+    <div class="container detail-course-inner-wrapper">
+        <div class="courses-description-main">
+            <div class="course-img-and-name">
+                <div class="course-img-cover-div">
+                    <img class="course-img-cover-div-src" src="{{url_for('static',filename='html_pics/woman.jpg')}}">
+                </div>
+                <h2 class="lessons-course-heading">
+                    Course Name
+                </h2>
+            </div>
+            <div class="lessons-course-description">
+                <h3>Description:</h3>
+                <p class="lesson-course-description-text">Lorem ipsum dolor sit amet,  exercitationem expedita harum ipsam iste labore magni natus, nobis non odio odit perferendis qui rerum soluta vitae. Dignissimos labore placeat ullam voluptas!</p>
+                <div class="no-of-duration" style="display:flex; flex-direction:row; color: rgba(0,0,0,0.7); ">
+
+                </div>
+                <div class="no-of-lesson" style="display:flex; flex-direction:row; color: rgba(0,0,0,0.7); ">
+                    <h5><i class="fas fa-sort-numeric-up" style="color: orange;"></i>No. of Lessons:</h5>
+                    <p class="number-of-lessons-text" style=font-size:20px>&nbsp;&nbsp;5</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="lessons-main-container">
+
+
+
+
+        </div>
+        <div class="circle-container">
+            <button type="button" id="small-go-back-circle" title="go back button">Back
+
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock body_content %}
+
+
+
+
+{% block scripts_content %}
+<script src="{{url_for('static',filename='scripts/jQuery.js')}}"></script>
+
+<script>
+    const all_teachers = {{all_teachers|safe}};
+    const all_course = {{all_courses|safe}};
+    const all_lessons = {{all_lessons|safe}};
+
+    $(document).ready(function () {
+        $('.detail-course-inner-wrapper').addClass("loaded");
+        console.log('hgyaaa')
+    });
+    var number_of_divs = 4;
+    var counter = 3000;
+    for( i=1; i<=number_of_divs;i++){
+        console.log('yes');
+        settt("div"+i.toString(),counter);
+        counter = counter+1000;
+    };
+    function settt(i,c) {
+        setTimeout(function(){
+            document.getElementById(i).style.visibility = "visible";
+        },c);
+    }
+
+    // AOS.init();
+    $('#small-go-back-circle').click(function () {
+        $('#details-courses').css('display','none');
+        $('.courses-packages').css('display','flex');
+        $('#small-go-back-circle').css('display', 'none');
+    });
+    $('.courses-details-display-button').click(function () {
+        console.log('click');
+        $('#details-courses').css('display','block');
+        $('.courses-packages').css('display','none');
+        $('#small-go-back-circle').css('display', 'flex');
+        $('courses-packages-wrapper').css('display', 'none');
+
+        let course_id = $(this).attr('id').split('-')[1];
+
+        let course = all_course[course_id];
+        let img_string = "{{url_for('static',filename='data/courses/course_code/course_image')}}".replace('course_code',course.course_code);
+
+        img_string = img_string.replace('course_image',course.course_image);
+        $('.course-img-cover-div-src').attr('src',img_string);
+        $('.lessons-course-heading').text(course.course_name);
+        $('.lesson-course-description-text').text(course.course_description);
+
+        let course_lesson_number = course.lessons.length;
+
+        $('.number-of-lessons-text').text(course_lesson_number);
+
+        let main_div_of_lessons = $('.lessons-main-container')
+        main_div_of_lessons.empty()
+        for(var lesson in course.lessons){
+            console.log(course.lessons[lesson]);
+            let img_string = "{{url_for('static',filename='data/courses/course_code/lesson_code/lesson_image')}}".replace('course_code',course.course_code);
+
+            img_string = img_string.replace('lesson_code',course.lessons[lesson].lesson_code);
+            img_string = img_string.replace('lesson_image',course.lessons[lesson].lesson_image);
+            main_div_of_lessons.append(' <div class="details-main" id="div1"><div class="lesson-img-div"><img src="'+img_string+'" alt=""></div><strong>'+course.lessons[lesson].lesson_name+'</strong><div class="lesson-description-div"></div></div>')
+        }
+    });
+    function search_animal() {
+        let input = document.getElementById('searchbar').value
+        input=input.toLowerCase();
+        let x = document.getElementsByClassName('search-heading');
+
+        for (i = 0; i < x.length; i++) {
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display="none";
+                parent = x[i].parent
+            }
+            else {
+                console.log('milgya')
+                x[i].style.display="block";
+            }
+        }
+    }
+
+    $('#video-container-courses-display-page').html(videoHTML);
+    $('#video-main-courses-display-page').on('loadedmetadata', function () {
+        video.play();
+    });
+
+
+
+
+</script>
+{% endblock scripts_content %}
+
